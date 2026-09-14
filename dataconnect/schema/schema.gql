@@ -1,9 +1,28 @@
+# ============================================================
+# DEWLY FARM - DATA CONNECT DATABASE SCHEMA
+# ============================================================
+
+
+# ============================================================
+# FARM
+# ============================================================
+
 type Farm @table {
   farmName: String!
   location: String!
   contactPhone: String
   email: String
+
+  # Firebase Authentication UID of the farm owner
+  # Keep nullable initially so existing Farm records
+  # can be migrated safely.
+  ownerUid: String
 }
+
+
+# ============================================================
+# USER
+# ============================================================
 
 type User @table {
   name: String!
@@ -11,6 +30,11 @@ type User @table {
   phoneNumber: String
   farm: Farm!
 }
+
+
+# ============================================================
+# ANIMAL
+# ============================================================
 
 type Animal @table {
   tagId: String!
@@ -23,6 +47,11 @@ type Animal @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# HEALTH RECORD
+# ============================================================
+
 type HealthRecord @table {
   eventDate: Timestamp!
   description: String!
@@ -33,6 +62,11 @@ type HealthRecord @table {
   animal: Animal!
 }
 
+
+# ============================================================
+# VACCINATION
+# ============================================================
+
 type Vaccination @table {
   vaccineName: String!
   dateAdministered: Date!
@@ -40,6 +74,11 @@ type Vaccination @table {
   notes: String
   animal: Animal!
 }
+
+
+# ============================================================
+# BREEDING
+# ============================================================
 
 type Breeding @table {
   breedingDate: Date!
@@ -49,6 +88,11 @@ type Breeding @table {
   notes: String
   animal: Animal!
 }
+
+
+# ============================================================
+# FIELD
+# ============================================================
 
 type Field @table {
   name: String!
@@ -61,6 +105,11 @@ type Field @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# CROP
+# ============================================================
+
 type Crop @table {
   name: String!
   cropType: String
@@ -69,6 +118,11 @@ type Crop @table {
   description: String
   farm: Farm!
 }
+
+
+# ============================================================
+# HARVEST
+# ============================================================
 
 type Harvest @table {
   harvestDate: Date!
@@ -80,6 +134,11 @@ type Harvest @table {
   crop: Crop!
 }
 
+
+# ============================================================
+# SUPPLIER
+# ============================================================
+
 type Supplier @table {
   name: String!
   contactInfo: String
@@ -87,6 +146,11 @@ type Supplier @table {
   email: String
   farm: Farm!
 }
+
+
+# ============================================================
+# INVENTORY ITEM
+# ============================================================
 
 type InventoryItem @table {
   itemName: String!
@@ -101,6 +165,11 @@ type InventoryItem @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# STOCK TRANSACTION
+# ============================================================
+
 type StockTransaction @table {
   type: String!
   quantity: Float!
@@ -110,6 +179,11 @@ type StockTransaction @table {
   notes: String
   inventoryItem: InventoryItem!
 }
+
+
+# ============================================================
+# BEE HIVE
+# ============================================================
 
 type BeeHive @table {
   hiveNumber: String!
@@ -123,6 +197,11 @@ type BeeHive @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# HONEY HARVEST
+# ============================================================
+
 type HoneyHarvest @table {
   harvestDate: Date!
   quantityKg: Float!
@@ -131,6 +210,11 @@ type HoneyHarvest @table {
   notes: String
   beeHive: BeeHive!
 }
+
+
+# ============================================================
+# EMPLOYEE
+# ============================================================
 
 type Employee @table {
   employeeId: String!
@@ -145,6 +229,11 @@ type Employee @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# WORK RECORD
+# ============================================================
+
 type WorkRecord @table {
   taskDescription: String!
   date: Date!
@@ -154,6 +243,11 @@ type WorkRecord @table {
   employee: Employee!
 }
 
+
+# ============================================================
+# CUSTOMER
+# ============================================================
+
 type Customer @table {
   name: String!
   contactInfo: String
@@ -162,6 +256,11 @@ type Customer @table {
   customerType: String
   farm: Farm!
 }
+
+
+# ============================================================
+# SALE
+# ============================================================
 
 type Sale @table {
   saleDate: Date!
@@ -174,6 +273,11 @@ type Sale @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# INCOME
+# ============================================================
+
 type Income @table {
   amount: Float!
   date: Date!
@@ -184,6 +288,11 @@ type Income @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# EXPENSE
+# ============================================================
+
 type Expense @table {
   amount: Float!
   date: Date!
@@ -193,6 +302,11 @@ type Expense @table {
   referenceNumber: String
   farm: Farm!
 }
+
+
+# ============================================================
+# FARM EVENT
+# ============================================================
 
 type FarmEvent @table {
   title: String!
@@ -209,6 +323,11 @@ type FarmEvent @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# NOTIFICATION
+# ============================================================
+
 type Notification @table {
   title: String!
   message: String!
@@ -221,6 +340,11 @@ type Notification @table {
   farmEvent: FarmEvent
   farm: Farm!
 }
+
+
+# ============================================================
+# FARM TASK
+# ============================================================
 
 type FarmTask @table {
   title: String!
@@ -235,6 +359,11 @@ type FarmTask @table {
   farm: Farm!
 }
 
+
+# ============================================================
+# EQUIPMENT
+# ============================================================
+
 type Equipment @table {
   name: String!
   equipmentType: String!
@@ -248,6 +377,11 @@ type Equipment @table {
   notes: String
   farm: Farm!
 }
+
+
+# ============================================================
+# EQUIPMENT MAINTENANCE
+# ============================================================
 
 type EquipmentMaintenance @table {
   serviceDate: Date!

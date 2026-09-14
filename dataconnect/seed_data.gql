@@ -1,23 +1,1045 @@
 mutation CreateSeedData @transaction {
+
+  # ============================================================
+  # FARMS
+  # ============================================================
+
   farm_insertMany(data: [
-    { id: "550e8400-e29b-41d4-a716-446655440000", farmName: "Green Valley Farm", location: "Rural Area 1", contactPhone: "123-456-7890", email: "contact@greenvalley.com" },
-    { id: "550e8400-e29b-41d4-a716-446655440001", farmName: "Blue River Farm", location: "Rural Area 2", contactPhone: "987-654-3210", email: "info@blueriver.com" }
+    {
+      id: "10000000-0000-0000-0000-000000000001"
+      farmName: "Dewly Green Valley Farm"
+      location: "Kurunegala, Sri Lanka"
+      contactPhone: "+94 77 123 4567"
+      email: "greenvalley@dewlyfarm.com"
+      ownerUid: "DEMO_OWNER_001"
+    },
+    {
+      id: "10000000-0000-0000-0000-000000000002"
+      farmName: "Dewly Highland Farm"
+      location: "Nuwara Eliya, Sri Lanka"
+      contactPhone: "+94 71 234 5678"
+      email: "highland@dewlyfarm.com"
+      ownerUid: "DEMO_OWNER_002"
+    }
   ])
+
+
+  # ============================================================
+  # USERS
+  # ============================================================
+
   user_insertMany(data: [
-    { id: "550e8400-e29b-41d4-a716-446655440002", name: "Alice Smith", role: "Owner", farm: { id: "550e8400-e29b-41d4-a716-446655440000" } },
-    { id: "550e8400-e29b-41d4-a716-446655440003", name: "Bob Jones", role: "Worker", farm: { id: "550e8400-e29b-41d4-a716-446655440001" } }
+    {
+      id: "20000000-0000-0000-0000-000000000001"
+      name: "Dewly Farm Admin"
+      role: "Owner"
+      phoneNumber: "+94 77 123 4567"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "20000000-0000-0000-0000-000000000002"
+      name: "Kasun Perera"
+      role: "Farm Manager"
+      phoneNumber: "+94 71 456 7890"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "20000000-0000-0000-0000-000000000003"
+      name: "Nimal Silva"
+      role: "Worker"
+      phoneNumber: "+94 76 345 6789"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
   ])
+
+
+  # ============================================================
+  # ANIMALS
+  # ============================================================
+
   animal_insertMany(data: [
-    { id: "550e8400-e29b-41d4-a716-446655440004", tagId: "A001", species: "Cow", birthDate: "2022-01-15", status: "Active", farm: { id: "550e8400-e29b-41d4-a716-446655440000" } },
-    { id: "550e8400-e29b-41d4-a716-446655440005", tagId: "A002", species: "Sheep", birthDate: "2023-05-20", status: "Active", farm: { id: "550e8400-e29b-41d4-a716-446655440001" } },
-    { id: "550e8400-e29b-41d4-a716-446655440006", tagId: "A003", species: "Cow", birthDate: "2021-11-10", status: "Sold", farm: { id: "550e8400-e29b-41d4-a716-446655440000" } }
+    {
+      id: "30000000-0000-0000-0000-000000000001"
+      tagId: "COW-001"
+      species: "Cow"
+      birthDate: "2022-03-15"
+      status: "Active"
+      breed: "Jersey"
+      gender: "Female"
+      purchaseDate: "2022-08-10"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "30000000-0000-0000-0000-000000000002"
+      tagId: "COW-002"
+      species: "Cow"
+      birthDate: "2021-07-20"
+      status: "Active"
+      breed: "Holstein"
+      gender: "Female"
+      purchaseDate: "2022-01-15"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "30000000-0000-0000-0000-000000000003"
+      tagId: "COW-003"
+      species: "Cow"
+      birthDate: "2020-11-05"
+      status: "Active"
+      breed: "Jersey"
+      gender: "Female"
+      purchaseDate: "2021-02-12"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "30000000-0000-0000-0000-000000000004"
+      tagId: "CALF-001"
+      species: "Cow"
+      birthDate: "2025-01-18"
+      status: "Active"
+      breed: "Jersey"
+      gender: "Male"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "30000000-0000-0000-0000-000000000005"
+      tagId: "GOAT-001"
+      species: "Goat"
+      birthDate: "2023-06-12"
+      status: "Active"
+      breed: "Boer"
+      gender: "Female"
+      purchaseDate: "2023-09-01"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "30000000-0000-0000-0000-000000000006"
+      tagId: "COW-004"
+      species: "Cow"
+      birthDate: "2019-04-10"
+      status: "Sold"
+      breed: "Holstein"
+      gender: "Female"
+      purchaseDate: "2020-01-20"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
   ])
+
+
+  # ============================================================
+  # HEALTH RECORDS
+  # ============================================================
+
   healthRecord_insertMany(data: [
-    { id: "550e8400-e29b-41d4-a716-446655440007", eventDate: "2023-06-01T10:00:00Z", description: "Vaccination", type: "Preventative", animal: { id: "550e8400-e29b-41d4-a716-446655440004" } },
-    { id: "550e8400-e29b-41d4-a716-446655440008", eventDate: "2023-07-15T14:30:00Z", description: "Checkup", type: "Routine", animal: { id: "550e8400-e29b-41d4-a716-446655440005" } },
-    { id: "550e8400-e29b-41d4-a716-446655440009", eventDate: "2023-08-01T09:00:00Z", description: "Infection treatment", type: "Emergency", animal: { id: "550e8400-e29b-41d4-a716-446655440006" } }
+    {
+      id: "40000000-0000-0000-0000-000000000001"
+      eventDate: "2026-01-15T09:00:00Z"
+      description: "Routine health examination"
+      type: "Routine Checkup"
+      veterinarianName: "Dr. Perera"
+      medicationUsed: "Vitamin Supplement"
+      notes: "Healthy condition"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "40000000-0000-0000-0000-000000000002"
+      eventDate: "2026-02-05T10:30:00Z"
+      description: "Minor digestive issue treatment"
+      type: "Treatment"
+      veterinarianName: "Dr. Fernando"
+      medicationUsed: "Digestive Support"
+      notes: "Recovered after treatment"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000002"
+      }
+    },
+    {
+      id: "40000000-0000-0000-0000-000000000003"
+      eventDate: "2026-03-10T08:30:00Z"
+      description: "Annual veterinary inspection"
+      type: "Inspection"
+      veterinarianName: "Dr. Perera"
+      notes: "No major issues detected"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000003"
+      }
+    }
   ])
+
+
+  # ============================================================
+  # VACCINATIONS
+  # ============================================================
+
+  vaccination_insertMany(data: [
+    {
+      id: "41000000-0000-0000-0000-000000000001"
+      vaccineName: "FMD Vaccine"
+      dateAdministered: "2026-01-20"
+      nextDueDate: "2026-07-20"
+      notes: "Annual vaccination"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "41000000-0000-0000-0000-000000000002"
+      vaccineName: "Brucellosis Vaccine"
+      dateAdministered: "2026-02-15"
+      nextDueDate: "2027-02-15"
+      notes: "Scheduled vaccination"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000002"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # BREEDING
+  # ============================================================
+
+  breeding_insertMany(data: [
+    {
+      id: "42000000-0000-0000-0000-000000000001"
+      breedingDate: "2026-01-10"
+      expectedBirthDate: "2026-10-10"
+      outcome: "Pregnant"
+      notes: "Healthy pregnancy"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "42000000-0000-0000-0000-000000000002"
+      breedingDate: "2025-12-20"
+      expectedBirthDate: "2026-09-20"
+      outcome: "Pregnant"
+      notes: "Regular monitoring required"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000002"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # FIELDS
+  # ============================================================
+
+  field_insertMany(data: [
+    {
+      id: "50000000-0000-0000-0000-000000000001"
+      name: "Field A"
+      sizeAcres: 5.5
+      location: "North Block"
+      soilType: "Loamy"
+      irrigationType: "Sprinkler"
+      currentCrop: "Corn"
+      lastHarvestDate: "2025-12-20"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "50000000-0000-0000-0000-000000000002"
+      name: "Field B"
+      sizeAcres: 3.25
+      location: "South Block"
+      soilType: "Clay Loam"
+      irrigationType: "Drip"
+      currentCrop: "Tomato"
+      lastHarvestDate: "2026-01-25"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "50000000-0000-0000-0000-000000000003"
+      name: "Field C"
+      sizeAcres: 7.0
+      location: "East Block"
+      soilType: "Sandy Loam"
+      irrigationType: "Sprinkler"
+      currentCrop: "Rice"
+      lastHarvestDate: "2025-11-30"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # CROPS
+  # ============================================================
+
+  crop_insertMany(data: [
+    {
+      id: "51000000-0000-0000-0000-000000000001"
+      name: "Corn"
+      cropType: "Grain"
+      plantingDate: "2026-01-05"
+      expectedHarvestDate: "2026-04-20"
+      description: "Sweet corn production"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "51000000-0000-0000-0000-000000000002"
+      name: "Tomato"
+      cropType: "Vegetable"
+      plantingDate: "2026-02-01"
+      expectedHarvestDate: "2026-05-15"
+      description: "Premium tomato crop"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "51000000-0000-0000-0000-000000000003"
+      name: "Rice"
+      cropType: "Grain"
+      plantingDate: "2026-01-15"
+      expectedHarvestDate: "2026-05-10"
+      description: "Paddy production"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # HARVEST
+  # ============================================================
+
+  harvest_insertMany(data: [
+    {
+      id: "52000000-0000-0000-0000-000000000001"
+      harvestDate: "2025-12-20"
+      yieldAmount: 1850
+      unit: "kg"
+      quality: "Premium"
+      notes: "Good quality harvest"
+      field: {
+        id: "50000000-0000-0000-0000-000000000001"
+      }
+      crop: {
+        id: "51000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "52000000-0000-0000-0000-000000000002"
+      harvestDate: "2026-01-25"
+      yieldAmount: 920
+      unit: "kg"
+      quality: "Grade A"
+      notes: "Excellent quality"
+      field: {
+        id: "50000000-0000-0000-0000-000000000002"
+      }
+      crop: {
+        id: "51000000-0000-0000-0000-000000000002"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # SUPPLIERS
+  # ============================================================
+
+  supplier_insertMany(data: [
+    {
+      id: "60000000-0000-0000-0000-000000000001"
+      name: "Agro Supplies Lanka"
+      contactInfo: "+94 77 555 1122"
+      address: "Kurunegala"
+      email: "sales@agrosupplies.lk"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "60000000-0000-0000-0000-000000000002"
+      name: "FarmTech Solutions"
+      contactInfo: "+94 71 555 3344"
+      address: "Colombo"
+      email: "info@farmtech.lk"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # INVENTORY
+  # ============================================================
+
+  inventoryItem_insertMany(data: [
+    {
+      id: "61000000-0000-0000-0000-000000000001"
+      itemName: "Cattle Feed"
+      category: "Animal Feed"
+      quantityOnHand: 850
+      unit: "kg"
+      unitPrice: 180
+      reorderLevel: 200
+      expiryDate: "2026-12-31"
+      storageLocation: "Feed Store"
+      supplier: {
+        id: "60000000-0000-0000-0000-000000000001"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "61000000-0000-0000-0000-000000000002"
+      itemName: "Veterinary Medicine"
+      category: "Medicine"
+      quantityOnHand: 45
+      unit: "bottles"
+      unitPrice: 1250
+      reorderLevel: 10
+      expiryDate: "2027-03-31"
+      storageLocation: "Medical Store"
+      supplier: {
+        id: "60000000-0000-0000-0000-000000000001"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "61000000-0000-0000-0000-000000000003"
+      itemName: "Fertilizer"
+      category: "Fertilizer"
+      quantityOnHand: 120
+      unit: "bags"
+      unitPrice: 4500
+      reorderLevel: 30
+      expiryDate: "2028-01-31"
+      storageLocation: "Fertilizer Store"
+      supplier: {
+        id: "60000000-0000-0000-0000-000000000002"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "61000000-0000-0000-0000-000000000004"
+      itemName: "Milking Gloves"
+      category: "Farm Equipment"
+      quantityOnHand: 85
+      unit: "pairs"
+      unitPrice: 350
+      reorderLevel: 20
+      storageLocation: "Equipment Store"
+      supplier: {
+        id: "60000000-0000-0000-0000-000000000002"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # STOCK TRANSACTIONS
+  # ============================================================
+
+  stockTransaction_insertMany(data: [
+    {
+      id: "62000000-0000-0000-0000-000000000001"
+      type: "IN"
+      quantity: 500
+      date: "2026-03-01"
+      unitPrice: 180
+      referenceNumber: "PO-2026-001"
+      notes: "Monthly feed delivery"
+      inventoryItem: {
+        id: "61000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "62000000-0000-0000-0000-000000000002"
+      type: "OUT"
+      quantity: 120
+      date: "2026-03-05"
+      unitPrice: 180
+      referenceNumber: "USE-2026-001"
+      notes: "Animal feeding"
+      inventoryItem: {
+        id: "61000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # BEE HIVES
+  # ============================================================
+
+  beeHive_insertMany(data: [
+    {
+      id: "70000000-0000-0000-0000-000000000001"
+      hiveNumber: "HIVE-001"
+      location: "Bee Garden A"
+      hiveType: "Langstroth"
+      colonyStrength: "Strong"
+      queenStatus: "Active"
+      lastInspectionDate: "2026-03-01"
+      nextInspectionDate: "2026-03-15"
+      notes: "Healthy colony"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "70000000-0000-0000-0000-000000000002"
+      hiveNumber: "HIVE-002"
+      location: "Bee Garden A"
+      hiveType: "Langstroth"
+      colonyStrength: "Medium"
+      queenStatus: "Active"
+      lastInspectionDate: "2026-03-02"
+      nextInspectionDate: "2026-03-16"
+      notes: "Needs feeding"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "70000000-0000-0000-0000-000000000003"
+      hiveNumber: "HIVE-003"
+      location: "Bee Garden B"
+      hiveType: "Top Bar"
+      colonyStrength: "Strong"
+      queenStatus: "Active"
+      lastInspectionDate: "2026-03-03"
+      nextInspectionDate: "2026-03-17"
+      notes: "Excellent colony"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # HONEY HARVEST
+  # ============================================================
+
+  honeyHarvest_insertMany(data: [
+    {
+      id: "71000000-0000-0000-0000-000000000001"
+      harvestDate: "2026-02-20"
+      quantityKg: 38.5
+      quality: "Premium"
+      buyer: "Ceylon Honey Traders"
+      notes: "High quality wildflower honey"
+      beeHive: {
+        id: "70000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "71000000-0000-0000-0000-000000000002"
+      harvestDate: "2026-03-01"
+      quantityKg: 42
+      quality: "Grade A"
+      buyer: "Island Honey Co."
+      notes: "Good production"
+      beeHive: {
+        id: "70000000-0000-0000-0000-000000000003"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # EMPLOYEES
+  # ============================================================
+
+  employee_insertMany(data: [
+    {
+      id: "80000000-0000-0000-0000-000000000001"
+      employeeId: "EMP-001"
+      name: "Kasun Perera"
+      role: "Farm Manager"
+      phone: "+94 71 456 7890"
+      email: "kasun@dewlyfarm.com"
+      address: "Kurunegala"
+      hireDate: "2024-01-15"
+      salary: 85000
+      status: "Active"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "80000000-0000-0000-0000-000000000002"
+      employeeId: "EMP-002"
+      name: "Nimal Silva"
+      role: "Animal Care Worker"
+      phone: "+94 76 345 6789"
+      email: "nimal@dewlyfarm.com"
+      address: "Kurunegala"
+      hireDate: "2024-05-10"
+      salary: 55000
+      status: "Active"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "80000000-0000-0000-0000-000000000003"
+      employeeId: "EMP-003"
+      name: "Saman Kumara"
+      role: "Field Worker"
+      phone: "+94 75 678 9012"
+      email: "saman@dewlyfarm.com"
+      address: "Kurunegala"
+      hireDate: "2025-02-01"
+      salary: 50000
+      status: "Active"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # WORK RECORDS
+  # ============================================================
+
+  workRecord_insertMany(data: [
+    {
+      id: "81000000-0000-0000-0000-000000000001"
+      taskDescription: "Morning cattle feeding"
+      date: "2026-03-10"
+      hours: 2.5
+      taskType: "Animal Care"
+      notes: "Completed successfully"
+      employee: {
+        id: "80000000-0000-0000-0000-000000000002"
+      }
+    },
+    {
+      id: "81000000-0000-0000-0000-000000000002"
+      taskDescription: "Field irrigation inspection"
+      date: "2026-03-10"
+      hours: 3
+      taskType: "Field Work"
+      notes: "All irrigation lines checked"
+      employee: {
+        id: "80000000-0000-0000-0000-000000000003"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # CUSTOMERS
+  # ============================================================
+
+  customer_insertMany(data: [
+    {
+      id: "90000000-0000-0000-0000-000000000001"
+      name: "Ceylon Fresh Foods"
+      contactInfo: "+94 77 111 2233"
+      address: "Colombo"
+      email: "orders@ceylonfresh.lk"
+      customerType: "Wholesale"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "90000000-0000-0000-0000-000000000002"
+      name: "Green Market"
+      contactInfo: "+94 71 222 3344"
+      address: "Kurunegala"
+      email: "greenmarket@gmail.com"
+      customerType: "Retail"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # SALES
+  # ============================================================
+
   sale_insertMany(data: [
-    { id: "550e8400-e29b-41d4-a716-446655440010", saleDate: "2023-09-01", salePrice: 1500.0, buyerName: "Local Butcher", animal: { id: "550e8400-e29b-41d4-a716-446655440006" } }
+    {
+      id: "91000000-0000-0000-0000-000000000001"
+      saleDate: "2026-02-15"
+      salePrice: 185000
+      buyerName: "Ceylon Fresh Foods"
+      paymentMethod: "Bank Transfer"
+      invoiceNumber: "INV-2026-001"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000006"
+      }
+      customer: {
+        id: "90000000-0000-0000-0000-000000000001"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "91000000-0000-0000-0000-000000000002"
+      saleDate: "2026-03-05"
+      salePrice: 125000
+      buyerName: "Green Market"
+      paymentMethod: "Cash"
+      invoiceNumber: "INV-2026-002"
+      customer: {
+        id: "90000000-0000-0000-0000-000000000002"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # INCOME
+  # ============================================================
+
+  income_insertMany(data: [
+    {
+      id: "92000000-0000-0000-0000-000000000001"
+      amount: 185000
+      date: "2026-02-15"
+      category: "Animal Sale"
+      description: "Cattle sale income"
+      paymentMethod: "Bank Transfer"
+      referenceNumber: "INV-2026-001"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "92000000-0000-0000-0000-000000000002"
+      amount: 96000
+      date: "2026-02-20"
+      category: "Honey Sales"
+      description: "Premium honey sales"
+      paymentMethod: "Bank Transfer"
+      referenceNumber: "HNY-2026-001"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "92000000-0000-0000-0000-000000000003"
+      amount: 125000
+      date: "2026-03-05"
+      category: "Produce Sales"
+      description: "Farm produce sales"
+      paymentMethod: "Cash"
+      referenceNumber: "INV-2026-002"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # EXPENSES
+  # ============================================================
+
+  expense_insertMany(data: [
+    {
+      id: "93000000-0000-0000-0000-000000000001"
+      amount: 45000
+      date: "2026-03-01"
+      category: "Animal Feed"
+      description: "Monthly cattle feed"
+      paymentMethod: "Bank Transfer"
+      referenceNumber: "PO-2026-001"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "93000000-0000-0000-0000-000000000002"
+      amount: 28000
+      date: "2026-03-03"
+      category: "Fertilizer"
+      description: "Field fertilizer purchase"
+      paymentMethod: "Cash"
+      referenceNumber: "FERT-2026-001"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "93000000-0000-0000-0000-000000000003"
+      amount: 15000
+      date: "2026-03-08"
+      category: "Veterinary"
+      description: "Veterinary services"
+      paymentMethod: "Cash"
+      referenceNumber: "VET-2026-001"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # FARM EVENTS
+  # ============================================================
+
+  farmEvent_insertMany(data: [
+    {
+      id: "94000000-0000-0000-0000-000000000001"
+      title: "Cattle Vaccination Day"
+      description: "Annual FMD vaccination"
+      eventType: "Health"
+      eventDate: "2026-03-20"
+      priority: "High"
+      completed: false
+      animal: {
+        id: "30000000-0000-0000-0000-000000000001"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "94000000-0000-0000-0000-000000000002"
+      title: "Corn Harvest"
+      description: "Expected corn harvesting activity"
+      eventType: "Harvest"
+      eventDate: "2026-04-20"
+      priority: "Medium"
+      completed: false
+      field: {
+        id: "50000000-0000-0000-0000-000000000001"
+      }
+      crop: {
+        id: "51000000-0000-0000-0000-000000000001"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # NOTIFICATIONS
+  # ============================================================
+
+  notification_insertMany(data: [
+    {
+      id: "95000000-0000-0000-0000-000000000001"
+      title: "Vaccination Due"
+      message: "FMD vaccination is due for COW-001"
+      notificationType: "Vaccination"
+      priority: "High"
+      eventDate: "2026-03-20"
+      isRead: false
+      createdAt: "2026-03-10T08:00:00Z"
+      animal: {
+        id: "30000000-0000-0000-0000-000000000001"
+      }
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "95000000-0000-0000-0000-000000000002"
+      title: "Low Stock Alert"
+      message: "Veterinary medicine stock is getting low"
+      notificationType: "Inventory"
+      priority: "Medium"
+      eventDate: "2026-03-15"
+      isRead: false
+      createdAt: "2026-03-10T09:00:00Z"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # FARM TASKS
+  # ============================================================
+
+  farmTask_insertMany(data: [
+    {
+      id: "96000000-0000-0000-0000-000000000001"
+      title: "Morning Animal Feeding"
+      description: "Feed all cattle and goats"
+      taskDate: "2026-03-11"
+      priority: "High"
+      status: "Pending"
+      employee: {
+        id: "80000000-0000-0000-0000-000000000002"
+      }
+      animal: {
+        id: "30000000-0000-0000-0000-000000000001"
+      }
+      notes: "Complete before 8:00 AM"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "96000000-0000-0000-0000-000000000002"
+      title: "Field Irrigation"
+      description: "Inspect irrigation system"
+      taskDate: "2026-03-11"
+      priority: "Medium"
+      status: "In Progress"
+      employee: {
+        id: "80000000-0000-0000-0000-000000000003"
+      }
+      field: {
+        id: "50000000-0000-0000-0000-000000000002"
+      }
+      notes: "Check drip lines"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # EQUIPMENT
+  # ============================================================
+
+  equipment_insertMany(data: [
+    {
+      id: "97000000-0000-0000-0000-000000000001"
+      name: "John Deere Tractor"
+      equipmentType: "Tractor"
+      serialNumber: "JD-TRACTOR-001"
+      purchaseDate: "2023-06-15"
+      purchasePrice: 4850000
+      status: "Operational"
+      location: "Main Equipment Shed"
+      lastServiceDate: "2026-02-15"
+      nextServiceDate: "2026-05-15"
+      notes: "Regular service required"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "97000000-0000-0000-0000-000000000002"
+      name: "Milking Machine"
+      equipmentType: "Milking Equipment"
+      serialNumber: "MM-2024-001"
+      purchaseDate: "2024-01-20"
+      purchasePrice: 750000
+      status: "Operational"
+      location: "Dairy Unit"
+      lastServiceDate: "2026-01-25"
+      nextServiceDate: "2026-04-25"
+      notes: "Working normally"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "97000000-0000-0000-0000-000000000003"
+      name: "Water Pump"
+      equipmentType: "Irrigation"
+      serialNumber: "WP-2025-003"
+      purchaseDate: "2025-04-10"
+      purchasePrice: 185000
+      status: "Maintenance"
+      location: "Irrigation Room"
+      lastServiceDate: "2026-02-28"
+      nextServiceDate: "2026-03-15"
+      notes: "Pump seal replacement required"
+      farm: {
+        id: "10000000-0000-0000-0000-000000000001"
+      }
+    }
+  ])
+
+
+  # ============================================================
+  # EQUIPMENT MAINTENANCE
+  # ============================================================
+
+  equipmentMaintenance_insertMany(data: [
+    {
+      id: "98000000-0000-0000-0000-000000000001"
+      serviceDate: "2026-02-15"
+      description: "Full tractor service"
+      cost: 35000
+      nextServiceDate: "2026-05-15"
+      technician: "AgroTech Service Center"
+      notes: "Engine oil and filters replaced"
+      equipment: {
+        id: "97000000-0000-0000-0000-000000000001"
+      }
+    },
+    {
+      id: "98000000-0000-0000-0000-000000000002"
+      serviceDate: "2026-01-25"
+      description: "Milking machine maintenance"
+      cost: 12000
+      nextServiceDate: "2026-04-25"
+      technician: "DairyTech Lanka"
+      notes: "Rubber seals replaced"
+      equipment: {
+        id: "97000000-0000-0000-0000-000000000002"
+      }
+    },
+    {
+      id: "98000000-0000-0000-0000-000000000003"
+      serviceDate: "2026-02-28"
+      description: "Water pump inspection"
+      cost: 8500
+      nextServiceDate: "2026-03-15"
+      technician: "FarmTech Solutions"
+      notes: "Pump seal needs replacement"
+      equipment: {
+        id: "97000000-0000-0000-0000-000000000003"
+      }
+    }
   ])
 }

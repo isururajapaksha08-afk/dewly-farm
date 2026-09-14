@@ -1,7 +1,5 @@
-﻿import React from "react";
-import {
+﻿import {
   HeartPulse,
-  MapPin,
   Package,
   DollarSign,
   CalendarDays,
@@ -11,7 +9,7 @@ import {
   Activity,
   Sprout,
   Users,
-  Milk
+  Milk,
 } from "lucide-react";
 
 const stats = [
@@ -21,7 +19,7 @@ const stats = [
     change: "+8.2%",
     positive: true,
     icon: HeartPulse,
-    label: "vs last month"
+    label: "vs last month",
   },
   {
     title: "Active Fields",
@@ -29,7 +27,7 @@ const stats = [
     change: "+4.5%",
     positive: true,
     icon: Sprout,
-    label: "currently active"
+    label: "currently active",
   },
   {
     title: "Stock Items",
@@ -37,7 +35,7 @@ const stats = [
     change: "-2.1%",
     positive: false,
     icon: Package,
-    label: "items in inventory"
+    label: "items in inventory",
   },
   {
     title: "Total Sales",
@@ -45,8 +43,8 @@ const stats = [
     change: "+12.8%",
     positive: true,
     icon: DollarSign,
-    label: "this month"
-  }
+    label: "this month",
+  },
 ];
 
 const events = [
@@ -54,20 +52,50 @@ const events = [
     title: "Cow 001 - Expected Calving",
     date: "Today",
     type: "HIGH",
-    icon: HeartPulse
+    icon: HeartPulse,
   },
   {
     title: "Corn Field Harvest",
     date: "Tomorrow",
     type: "MEDIUM",
-    icon: Sprout
+    icon: Sprout,
   },
   {
     title: "Veterinary Checkup",
     date: "Sep 15",
     type: "NORMAL",
-    icon: Activity
-  }
+    icon: Activity,
+  },
+];
+
+const months = [
+  "Oct",
+  "Nov",
+  "Dec",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+];
+
+const production = [
+  42,
+  58,
+  48,
+  72,
+  63,
+  88,
+  76,
+  94,
+  81,
+  100,
+  87,
+  96,
 ];
 
 export default function DashboardPage() {
@@ -75,6 +103,7 @@ export default function DashboardPage() {
     <div className="dashboard">
 
       {/* HERO */}
+
       <div className="dashboard-hero">
         <div>
           <span className="hero-label">
@@ -83,40 +112,52 @@ export default function DashboardPage() {
           </span>
 
           <h2>
-            Good morning, Admin <span>👋</span>
+            Good morning, Admin 👋
           </h2>
 
           <p>
-            Here's what's happening across your farm today.
+            Here's what's happening across
+            your farm today.
           </p>
         </div>
 
         <div className="hero-date">
           <CalendarDays size={18} />
-          <span>September 12, 2026</span>
+          <span>
+            September 14, 2026
+          </span>
         </div>
       </div>
 
-      {/* KPI CARDS */}
+      {/* STATS */}
+
       <div className="stats-grid">
         {stats.map((stat) => {
           const Icon = stat.icon;
 
           return (
-            <div className="stat-card" key={stat.title}>
+            <div
+              className="stat-card"
+              key={stat.title}
+            >
               <div className="stat-top">
                 <div className="stat-icon">
                   <Icon size={21} />
                 </div>
 
-                <span className={`stat-change ${
-                  stat.positive ? "positive" : "negative"
-                }`}>
+                <span
+                  className={`stat-change ${
+                    stat.positive
+                      ? "positive"
+                      : "negative"
+                  }`}
+                >
                   {stat.positive ? (
                     <ArrowUpRight size={14} />
                   ) : (
                     <ArrowDownRight size={14} />
                   )}
+
                   {stat.change}
                 </span>
               </div>
@@ -137,40 +178,62 @@ export default function DashboardPage() {
         })}
       </div>
 
-      {/* MAIN GRID */}
+      {/* PRODUCTION + HEALTH */}
+
       <div className="dashboard-grid">
 
         {/* PRODUCTION */}
+
         <div className="dashboard-card production-card">
           <div className="card-header">
             <div>
-              <h3>Farm Production</h3>
-              <p>Monthly production overview</p>
+              <h3>
+                Farm Production
+              </h3>
+
+              <p>
+                Monthly production overview
+              </p>
             </div>
 
-            <select>
-              <option>Last 6 months</option>
-              <option>Last 12 months</option>
+            <select defaultValue="6">
+              <option value="6">
+                Last 6 months
+              </option>
+
+              <option value="12">
+                Last 12 months
+              </option>
             </select>
           </div>
 
           <div className="production-chart">
-
             <div className="chart-value">
-              <strong>8,420</strong>
-              <span>Litres</span>
+              <strong>
+                8,420
+              </strong>
+
+              <span>
+                Litres
+              </span>
             </div>
 
             <div className="chart-bars">
-              {[42, 58, 48, 72, 63, 88, 76, 94, 81, 100, 87, 96].map(
+              {production.map(
                 (height, index) => (
-                  <div className="chart-column" key={index}>
+                  <div
+                    className="chart-column"
+                    key={months[index]}
+                  >
                     <div
                       className="chart-bar"
-                      style={{ height: `${height}%` }}
+                      style={{
+                        height: `${height}%`,
+                      }}
                     />
+
                     <span>
-                      {["Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"][index]}
+                      {months[index]}
                     </span>
                   </div>
                 )
@@ -179,179 +242,231 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* QUICK OVERVIEW */}
+        {/* HEALTH */}
+
         <div className="dashboard-card">
           <div className="card-header">
             <div>
-              <h3>Farm Health</h3>
-              <p>Current system status</p>
+              <h3>
+                Farm Health
+              </h3>
+
+              <p>
+                Current system status
+              </p>
             </div>
           </div>
 
           <div className="health-list">
 
-            <div className="health-item">
-              <div className="health-icon green">
-                <HeartPulse size={19} />
-              </div>
+            <HealthItem
+              icon={<HeartPulse size={19} />}
+              iconClass="green"
+              title="Livestock Health"
+              description="Excellent condition"
+              value="94%"
+            />
 
-              <div className="health-content">
-                <strong>Livestock Health</strong>
-                <span>Excellent condition</span>
-              </div>
+            <HealthItem
+              icon={<Milk size={19} />}
+              iconClass="blue"
+              title="Milk Production"
+              description="Above monthly target"
+              value="87%"
+            />
 
-              <b>94%</b>
-            </div>
+            <HealthItem
+              icon={<Package size={19} />}
+              iconClass="orange"
+              title="Inventory Health"
+              description="3 low-stock items"
+              value="76%"
+            />
 
-            <div className="health-item">
-              <div className="health-icon blue">
-                <Milk size={19} />
-              </div>
-
-              <div className="health-content">
-                <strong>Milk Production</strong>
-                <span>Above monthly target</span>
-              </div>
-
-              <b>87%</b>
-            </div>
-
-            <div className="health-item">
-              <div className="health-icon orange">
-                <Package size={19} />
-              </div>
-
-              <div className="health-content">
-                <strong>Inventory Health</strong>
-                <span>3 low-stock items</span>
-              </div>
-
-              <b>76%</b>
-            </div>
-
-            <div className="health-item">
-              <div className="health-icon purple">
-                <Users size={19} />
-              </div>
-
-              <div className="health-content">
-                <strong>Team Activity</strong>
-                <span>12 employees active</span>
-              </div>
-
-              <b>91%</b>
-            </div>
+            <HealthItem
+              icon={<Users size={19} />}
+              iconClass="purple"
+              title="Team Activity"
+              description="12 employees active"
+              value="91%"
+            />
 
           </div>
         </div>
-
       </div>
 
-      {/* BOTTOM GRID */}
+      {/* EVENTS + NOTIFICATIONS */}
+
       <div className="dashboard-grid bottom-grid">
 
         {/* EVENTS */}
+
         <div className="dashboard-card">
           <div className="card-header">
             <div>
-              <h3>Upcoming Farm Events</h3>
-              <p>Important activities and reminders</p>
+              <h3>
+                Upcoming Farm Events
+              </h3>
+
+              <p>
+                Important activities and reminders
+              </p>
             </div>
 
-            <button className="text-button">
+            <button
+              type="button"
+              className="text-button"
+            >
               View all
             </button>
           </div>
 
           <div className="events-list">
-            {events.map((event, index) => {
-              const Icon = event.icon;
+            {events.map(
+              (event) => {
+                const Icon = event.icon;
 
-              return (
-                <div className="event-item" key={index}>
-                  <div className="event-icon">
-                    <Icon size={18} />
-                  </div>
+                return (
+                  <div
+                    className="event-item"
+                    key={event.title}
+                  >
+                    <div className="event-icon">
+                      <Icon size={18} />
+                    </div>
 
-                  <div className="event-info">
-                    <strong>{event.title}</strong>
-                    <span>
-                      <CalendarDays size={13} />
-                      {event.date}
+                    <div className="event-info">
+                      <strong>
+                        {event.title}
+                      </strong>
+
+                      <span>
+                        <CalendarDays
+                          size={13}
+                        />
+
+                        {event.date}
+                      </span>
+                    </div>
+
+                    <span
+                      className={`priority ${event.type.toLowerCase()}`}
+                    >
+                      {event.type}
                     </span>
                   </div>
-
-                  <span className={`priority ${event.type.toLowerCase()}`}>
-                    {event.type}
-                  </span>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
           </div>
         </div>
 
         {/* NOTIFICATIONS */}
+
         <div className="dashboard-card">
           <div className="card-header">
             <div>
-              <h3>System Notifications</h3>
-              <p>Latest farm alerts</p>
+              <h3>
+                System Notifications
+              </h3>
+
+              <p>
+                Latest farm alerts
+              </p>
             </div>
 
-            <button className="text-button">
+            <button
+              type="button"
+              className="text-button"
+            >
               See all
             </button>
           </div>
 
           <div className="notification-list">
 
-            <div className="system-notification warning">
-              <div className="notification-symbol">
-                <Bell size={17} />
-              </div>
+            <SystemNotification
+              type="warning"
+              icon={<Bell size={17} />}
+              title="Stock Alert"
+              message="Cattle feed quantity has dropped below reorder level."
+              time="15 minutes ago"
+            />
 
-              <div>
-                <strong>Stock Alert</strong>
-                <p>
-                  Cattle feed quantity has dropped below reorder level.
-                </p>
-                <span>15 minutes ago</span>
-              </div>
-            </div>
+            <SystemNotification
+              type="success"
+              icon={<Activity size={17} />}
+              title="Health Check Complete"
+              message="8 livestock health records updated successfully."
+              time="1 hour ago"
+            />
 
-            <div className="system-notification success">
-              <div className="notification-symbol">
-                <Activity size={17} />
-              </div>
-
-              <div>
-                <strong>Health Check Complete</strong>
-                <p>
-                  8 livestock health records updated successfully.
-                </p>
-                <span>1 hour ago</span>
-              </div>
-            </div>
-
-            <div className="system-notification info">
-              <div className="notification-symbol">
-                <DollarSign size={17} />
-              </div>
-
-              <div>
-                <strong>New Sale Recorded</strong>
-                <p>
-                  A new livestock sale worth LKR 42,000 was recorded.
-                </p>
-                <span>3 hours ago</span>
-              </div>
-            </div>
+            <SystemNotification
+              type="info"
+              icon={<DollarSign size={17} />}
+              title="New Sale Recorded"
+              message="A new livestock sale worth LKR 42,000 was recorded."
+              time="3 hours ago"
+            />
 
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+function HealthItem({
+  icon,
+  iconClass,
+  title,
+  description,
+  value,
+}) {
+  return (
+    <div className="health-item">
+      <div
+        className={`health-icon ${iconClass}`}
+      >
+        {icon}
       </div>
 
+      <div className="health-content">
+        <strong>{title}</strong>
+        <span>{description}</span>
+      </div>
+
+      <b>{value}</b>
+    </div>
+  );
+}
+
+function SystemNotification({
+  type,
+  icon,
+  title,
+  message,
+  time,
+}) {
+  return (
+    <div
+      className={`system-notification ${type}`}
+    >
+      <div className="notification-symbol">
+        {icon}
+      </div>
+
+      <div>
+        <strong>{title}</strong>
+
+        <p>{message}</p>
+
+        <span>{time}</span>
+      </div>
     </div>
   );
 }
