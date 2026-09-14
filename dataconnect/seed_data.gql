@@ -1,0 +1,23 @@
+mutation CreateSeedData @transaction {
+  farm_insertMany(data: [
+    { id: "550e8400-e29b-41d4-a716-446655440000", farmName: "Green Valley Farm", location: "Rural Area 1", contactPhone: "123-456-7890", email: "contact@greenvalley.com" },
+    { id: "550e8400-e29b-41d4-a716-446655440001", farmName: "Blue River Farm", location: "Rural Area 2", contactPhone: "987-654-3210", email: "info@blueriver.com" }
+  ])
+  user_insertMany(data: [
+    { id: "550e8400-e29b-41d4-a716-446655440002", name: "Alice Smith", role: "Owner", farm: { id: "550e8400-e29b-41d4-a716-446655440000" } },
+    { id: "550e8400-e29b-41d4-a716-446655440003", name: "Bob Jones", role: "Worker", farm: { id: "550e8400-e29b-41d4-a716-446655440001" } }
+  ])
+  animal_insertMany(data: [
+    { id: "550e8400-e29b-41d4-a716-446655440004", tagId: "A001", species: "Cow", birthDate: "2022-01-15", status: "Active", farm: { id: "550e8400-e29b-41d4-a716-446655440000" } },
+    { id: "550e8400-e29b-41d4-a716-446655440005", tagId: "A002", species: "Sheep", birthDate: "2023-05-20", status: "Active", farm: { id: "550e8400-e29b-41d4-a716-446655440001" } },
+    { id: "550e8400-e29b-41d4-a716-446655440006", tagId: "A003", species: "Cow", birthDate: "2021-11-10", status: "Sold", farm: { id: "550e8400-e29b-41d4-a716-446655440000" } }
+  ])
+  healthRecord_insertMany(data: [
+    { id: "550e8400-e29b-41d4-a716-446655440007", eventDate: "2023-06-01T10:00:00Z", description: "Vaccination", type: "Preventative", animal: { id: "550e8400-e29b-41d4-a716-446655440004" } },
+    { id: "550e8400-e29b-41d4-a716-446655440008", eventDate: "2023-07-15T14:30:00Z", description: "Checkup", type: "Routine", animal: { id: "550e8400-e29b-41d4-a716-446655440005" } },
+    { id: "550e8400-e29b-41d4-a716-446655440009", eventDate: "2023-08-01T09:00:00Z", description: "Infection treatment", type: "Emergency", animal: { id: "550e8400-e29b-41d4-a716-446655440006" } }
+  ])
+  sale_insertMany(data: [
+    { id: "550e8400-e29b-41d4-a716-446655440010", saleDate: "2023-09-01", salePrice: 1500.0, buyerName: "Local Butcher", animal: { id: "550e8400-e29b-41d4-a716-446655440006" } }
+  ])
+}

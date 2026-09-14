@@ -1,0 +1,97 @@
+﻿# ============================================================
+# EQUIPMENT
+# ============================================================
+
+query ListEquipment @auth(level: USER) {
+  equipments {
+    id
+    name
+    equipmentType
+    serialNumber
+    purchaseDate
+    purchasePrice
+    status
+    location
+    lastServiceDate
+    nextServiceDate
+    notes
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+mutation CreateEquipment(
+  $name: String!
+  $equipmentType: String!
+  $serialNumber: String
+  $purchaseDate: Date
+  $purchasePrice: Float
+  $status: String!
+  $location: String
+  $lastServiceDate: Date
+  $nextServiceDate: Date
+  $notes: String
+  $farmId: UUID!
+) @auth(level: USER) {
+  equipment_insert(
+    data: {
+      name: $name
+      equipmentType: $equipmentType
+      serialNumber: $serialNumber
+      purchaseDate: $purchaseDate
+      purchasePrice: $purchasePrice
+      status: $status
+      location: $location
+      lastServiceDate: $lastServiceDate
+      nextServiceDate: $nextServiceDate
+      notes: $notes
+      farm: { id: $farmId }
+    }
+  )
+}
+
+# ============================================================
+# EQUIPMENT MAINTENANCE
+# ============================================================
+
+query ListEquipmentMaintenance @auth(level: USER) {
+  equipmentMaintenances {
+    id
+    serviceDate
+    description
+    cost
+    nextServiceDate
+    technician
+    notes
+    equipment {
+      id
+      name
+      equipmentType
+      serialNumber
+    }
+  }
+}
+
+mutation CreateEquipmentMaintenance(
+  $serviceDate: Date!
+  $description: String!
+  $cost: Float
+  $nextServiceDate: Date
+  $technician: String
+  $notes: String
+  $equipmentId: UUID!
+) @auth(level: USER) {
+  equipmentMaintenance_insert(
+    data: {
+      serviceDate: $serviceDate
+      description: $description
+      cost: $cost
+      nextServiceDate: $nextServiceDate
+      technician: $technician
+      notes: $notes
+      equipment: { id: $equipmentId }
+    }
+  )
+}

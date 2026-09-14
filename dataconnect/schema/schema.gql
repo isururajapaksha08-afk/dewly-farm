@@ -1,0 +1,260 @@
+type Farm @table {
+  farmName: String!
+  location: String!
+  contactPhone: String
+  email: String
+}
+
+type User @table {
+  name: String!
+  role: String!
+  phoneNumber: String
+  farm: Farm!
+}
+
+type Animal @table {
+  tagId: String!
+  species: String!
+  birthDate: Date!
+  status: String!
+  breed: String
+  gender: String
+  purchaseDate: Date
+  farm: Farm!
+}
+
+type HealthRecord @table {
+  eventDate: Timestamp!
+  description: String!
+  type: String!
+  veterinarianName: String
+  medicationUsed: String
+  notes: String
+  animal: Animal!
+}
+
+type Vaccination @table {
+  vaccineName: String!
+  dateAdministered: Date!
+  nextDueDate: Date
+  notes: String
+  animal: Animal!
+}
+
+type Breeding @table {
+  breedingDate: Date!
+  expectedBirthDate: Date
+  actualBirthDate: Date
+  outcome: String
+  notes: String
+  animal: Animal!
+}
+
+type Field @table {
+  name: String!
+  sizeAcres: Float!
+  location: String
+  soilType: String
+  irrigationType: String
+  currentCrop: String
+  lastHarvestDate: Date
+  farm: Farm!
+}
+
+type Crop @table {
+  name: String!
+  cropType: String
+  plantingDate: Date
+  expectedHarvestDate: Date
+  description: String
+  farm: Farm!
+}
+
+type Harvest @table {
+  harvestDate: Date!
+  yieldAmount: Float!
+  unit: String!
+  quality: String
+  notes: String
+  field: Field!
+  crop: Crop!
+}
+
+type Supplier @table {
+  name: String!
+  contactInfo: String
+  address: String
+  email: String
+  farm: Farm!
+}
+
+type InventoryItem @table {
+  itemName: String!
+  category: String!
+  quantityOnHand: Float!
+  unit: String!
+  unitPrice: Float!
+  reorderLevel: Float
+  expiryDate: Date
+  storageLocation: String
+  supplier: Supplier
+  farm: Farm!
+}
+
+type StockTransaction @table {
+  type: String!
+  quantity: Float!
+  date: Date!
+  unitPrice: Float
+  referenceNumber: String
+  notes: String
+  inventoryItem: InventoryItem!
+}
+
+type BeeHive @table {
+  hiveNumber: String!
+  location: String!
+  hiveType: String
+  colonyStrength: String
+  queenStatus: String
+  lastInspectionDate: Date
+  nextInspectionDate: Date
+  notes: String
+  farm: Farm!
+}
+
+type HoneyHarvest @table {
+  harvestDate: Date!
+  quantityKg: Float!
+  quality: String
+  buyer: String
+  notes: String
+  beeHive: BeeHive!
+}
+
+type Employee @table {
+  employeeId: String!
+  name: String!
+  role: String!
+  phone: String
+  email: String
+  address: String
+  hireDate: Date
+  salary: Float
+  status: String!
+  farm: Farm!
+}
+
+type WorkRecord @table {
+  taskDescription: String!
+  date: Date!
+  hours: Float
+  taskType: String
+  notes: String
+  employee: Employee!
+}
+
+type Customer @table {
+  name: String!
+  contactInfo: String
+  address: String
+  email: String
+  customerType: String
+  farm: Farm!
+}
+
+type Sale @table {
+  saleDate: Date!
+  salePrice: Float!
+  buyerName: String!
+  paymentMethod: String
+  invoiceNumber: String
+  animal: Animal
+  customer: Customer
+  farm: Farm!
+}
+
+type Income @table {
+  amount: Float!
+  date: Date!
+  category: String!
+  description: String
+  paymentMethod: String
+  referenceNumber: String
+  farm: Farm!
+}
+
+type Expense @table {
+  amount: Float!
+  date: Date!
+  category: String!
+  description: String
+  paymentMethod: String
+  referenceNumber: String
+  farm: Farm!
+}
+
+type FarmEvent @table {
+  title: String!
+  description: String
+  eventType: String!
+  eventDate: Date!
+  priority: String!
+  completed: Boolean!
+  animal: Animal
+  field: Field
+  crop: Crop
+  beeHive: BeeHive
+  employee: Employee
+  farm: Farm!
+}
+
+type Notification @table {
+  title: String!
+  message: String!
+  notificationType: String!
+  priority: String!
+  eventDate: Date
+  isRead: Boolean!
+  createdAt: Timestamp!
+  animal: Animal
+  farmEvent: FarmEvent
+  farm: Farm!
+}
+
+type FarmTask @table {
+  title: String!
+  description: String
+  taskDate: Date!
+  priority: String!
+  status: String!
+  employee: Employee
+  animal: Animal
+  field: Field
+  notes: String
+  farm: Farm!
+}
+
+type Equipment @table {
+  name: String!
+  equipmentType: String!
+  serialNumber: String
+  purchaseDate: Date
+  purchasePrice: Float
+  status: String!
+  location: String
+  lastServiceDate: Date
+  nextServiceDate: Date
+  notes: String
+  farm: Farm!
+}
+
+type EquipmentMaintenance @table {
+  serviceDate: Date!
+  description: String!
+  cost: Float
+  nextServiceDate: Date
+  technician: String
+  notes: String
+  equipment: Equipment!
+}

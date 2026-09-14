@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "dewlyfarm",
+    "staging": "dewlyfarm"
+  },
+  "targets": {},
+  "etags": {}
+}

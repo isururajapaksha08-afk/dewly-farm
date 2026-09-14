@@ -1,0 +1,14 @@
+specVersion: "v1"
+serviceId: "webapp"
+location: "asia-southeast1"
+
+schemas:
+  - source: "./schema"
+    datasource:
+      postgresql:
+        database: "dewlyfarm-2-database"
+        cloudSql:
+          instanceId: "dewlyfarm-instance"
+
+connectorDirs:
+  - "./example"
