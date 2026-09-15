@@ -405,3 +405,108 @@ query ListEquipmentMaintenance @auth(level: USER) {
     }
   }
 }
+# ============================================================
+# USERS - CURRENT LOGGED IN USER
+# ============================================================
+
+query GetMyUser @auth(level: USER) {
+  users(
+    where: {
+      authUid: { eq_expr: "auth.uid" }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+      location
+      contactPhone
+      email
+      ownerUid
+    }
+  }
+}
+
+# ============================================================
+# USERS - FARM USERS
+# ============================================================
+
+query ListMyFarmUsers @auth(level: USER) {
+  users(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+    }
+  }
+}# ============================================================
+# USERS
+# ============================================================
+
+query GetMyUser @auth(level: USER) {
+  users(
+    where: {
+      authUid: { eq_expr: "auth.uid" }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+      location
+      contactPhone
+      email
+      ownerUid
+    }
+  }
+}
+
+query ListMyFarmUsers @auth(level: USER) {
+  users(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+    }
+  }
+}

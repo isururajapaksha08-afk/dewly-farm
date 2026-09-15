@@ -1,4 +1,11 @@
+
 import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -13,6 +20,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+const auth = getAuth(app);
+
 let analytics = null;
 
 isSupported().then((supported) => {
@@ -21,4 +30,30 @@ isSupported().then((supported) => {
   }
 });
 
-export { app, analytics };
+const userIdToEmail = (userId) => {
+  return `${userId.trim().toLowerCase()}@dewlyfarm.local`;
+};
+
+const loginWithUserId = async (userId, password) => {
+  const email = userIdToEmail(userId);
+
+  return signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+};
+
+const logout = () => {
+  return signOut(auth);
+};
+
+export {
+  app,
+  auth,
+  analytics,
+  onAuthStateChanged,
+  loginWithUserId,
+  logout,
+  userIdToEmail,
+};

@@ -17,11 +17,21 @@ You can also follow the instructions from the [Data Connect documentation](https
 - [**Accessing the connector**](#accessing-the-connector)
   - [*Connecting to the local Emulator*](#connecting-to-the-local-emulator)
 - [**Queries**](#queries)
+  - [*GetMyFarms*](#getmyfarms)
+  - [*ListMyAnimals*](#listmyanimals)
+  - [*ListMyFields*](#listmyfields)
+  - [*ListMyCrops*](#listmycrops)
+  - [*ListMyInventory*](#listmyinventory)
+  - [*ListMySales*](#listmysales)
+  - [*ListMyIncome*](#listmyincome)
+  - [*ListMyExpenses*](#listmyexpenses)
+  - [*ListMyEmployees*](#listmyemployees)
+  - [*ListMyFarmEvents*](#listmyfarmevents)
+  - [*ListMyNotifications*](#listmynotifications)
+  - [*ListMyFarmTasks*](#listmyfarmtasks)
   - [*ListEquipment*](#listequipment)
   - [*ListEquipmentMaintenance*](#listequipmentmaintenance)
 - [**Mutations**](#mutations)
-  - [*CreateEquipment*](#createequipment)
-  - [*CreateEquipmentMaintenance*](#createequipmentmaintenance)
 
 # TanStack Query Firebase & TanStack React Query
 This SDK provides [React](https://react.dev/) hooks generated specific to your application, for the operations found in the connector `example`. These hooks are generated using [TanStack Query Firebase](https://react-query-firebase.invertase.dev/) by our partners at Invertase, a library built on top of [TanStack React Query v5](https://tanstack.com/query/v5/docs/framework/react/overview).
@@ -112,6 +122,1016 @@ Here's a general overview of how to use the generated Query hooks in your code:
   - ***Special case:***  If the Query has all optional variables and you would like to provide an `options` argument to the Query hook function without providing any variables, you must pass `undefined` where you would normally pass the Query's variables, and then may provide the `options` argument.
 
 Below are examples of how to use the `example` connector's generated Query hook functions to execute each Query. You can also follow the examples from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#operations-react-angular).
+
+## GetMyFarms
+You can execute the `GetMyFarms` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useGetMyFarms(dc: DataConnect, options?: useDataConnectQueryOptions<GetMyFarmsData>): UseDataConnectQueryResult<GetMyFarmsData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useGetMyFarms(options?: useDataConnectQueryOptions<GetMyFarmsData>): UseDataConnectQueryResult<GetMyFarmsData, undefined>;
+```
+
+### Variables
+The `GetMyFarms` Query has no variables.
+### Return Type
+Recall that calling the `GetMyFarms` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetMyFarms` Query is of type `GetMyFarmsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface GetMyFarmsData {
+  farms: ({
+    id: UUIDString;
+    farmName: string;
+    location: string;
+    contactPhone?: string | null;
+    email?: string | null;
+    ownerUid?: string | null;
+  } & Farm_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `GetMyFarms`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useGetMyFarms } from '@dataconnect/generated/react'
+
+export default function GetMyFarmsComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useGetMyFarms();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useGetMyFarms(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetMyFarms(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetMyFarms(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.farms);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyAnimals
+You can execute the `ListMyAnimals` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyAnimals(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyAnimalsData>): UseDataConnectQueryResult<ListMyAnimalsData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyAnimals(options?: useDataConnectQueryOptions<ListMyAnimalsData>): UseDataConnectQueryResult<ListMyAnimalsData, undefined>;
+```
+
+### Variables
+The `ListMyAnimals` Query has no variables.
+### Return Type
+Recall that calling the `ListMyAnimals` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyAnimals` Query is of type `ListMyAnimalsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyAnimalsData {
+  animals: ({
+    id: UUIDString;
+    tagId: string;
+    species: string;
+    birthDate: DateString;
+    status: string;
+    breed?: string | null;
+    gender?: string | null;
+    purchaseDate?: DateString | null;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Animal_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyAnimals`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyAnimals } from '@dataconnect/generated/react'
+
+export default function ListMyAnimalsComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyAnimals();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyAnimals(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyAnimals(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyAnimals(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.animals);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyFields
+You can execute the `ListMyFields` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyFields(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyFieldsData>): UseDataConnectQueryResult<ListMyFieldsData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyFields(options?: useDataConnectQueryOptions<ListMyFieldsData>): UseDataConnectQueryResult<ListMyFieldsData, undefined>;
+```
+
+### Variables
+The `ListMyFields` Query has no variables.
+### Return Type
+Recall that calling the `ListMyFields` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyFields` Query is of type `ListMyFieldsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyFieldsData {
+  fields: ({
+    id: UUIDString;
+    name: string;
+    sizeAcres: number;
+    location?: string | null;
+    soilType?: string | null;
+    irrigationType?: string | null;
+    currentCrop?: string | null;
+    lastHarvestDate?: DateString | null;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Field_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyFields`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyFields } from '@dataconnect/generated/react'
+
+export default function ListMyFieldsComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyFields();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyFields(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyFields(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyFields(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.fields);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyCrops
+You can execute the `ListMyCrops` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyCrops(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyCropsData>): UseDataConnectQueryResult<ListMyCropsData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyCrops(options?: useDataConnectQueryOptions<ListMyCropsData>): UseDataConnectQueryResult<ListMyCropsData, undefined>;
+```
+
+### Variables
+The `ListMyCrops` Query has no variables.
+### Return Type
+Recall that calling the `ListMyCrops` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyCrops` Query is of type `ListMyCropsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyCropsData {
+  crops: ({
+    id: UUIDString;
+    name: string;
+    cropType?: string | null;
+    plantingDate?: DateString | null;
+    expectedHarvestDate?: DateString | null;
+    description?: string | null;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Crop_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyCrops`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyCrops } from '@dataconnect/generated/react'
+
+export default function ListMyCropsComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyCrops();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyCrops(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyCrops(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyCrops(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.crops);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyInventory
+You can execute the `ListMyInventory` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyInventory(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyInventoryData>): UseDataConnectQueryResult<ListMyInventoryData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyInventory(options?: useDataConnectQueryOptions<ListMyInventoryData>): UseDataConnectQueryResult<ListMyInventoryData, undefined>;
+```
+
+### Variables
+The `ListMyInventory` Query has no variables.
+### Return Type
+Recall that calling the `ListMyInventory` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyInventory` Query is of type `ListMyInventoryData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyInventoryData {
+  inventoryItems: ({
+    id: UUIDString;
+    itemName: string;
+    category: string;
+    quantityOnHand: number;
+    unit: string;
+    unitPrice: number;
+    reorderLevel?: number | null;
+    expiryDate?: DateString | null;
+    storageLocation?: string | null;
+    supplier?: {
+      id: UUIDString;
+      name: string;
+    } & Supplier_Key;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & InventoryItem_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyInventory`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyInventory } from '@dataconnect/generated/react'
+
+export default function ListMyInventoryComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyInventory();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyInventory(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyInventory(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyInventory(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.inventoryItems);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMySales
+You can execute the `ListMySales` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMySales(dc: DataConnect, options?: useDataConnectQueryOptions<ListMySalesData>): UseDataConnectQueryResult<ListMySalesData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMySales(options?: useDataConnectQueryOptions<ListMySalesData>): UseDataConnectQueryResult<ListMySalesData, undefined>;
+```
+
+### Variables
+The `ListMySales` Query has no variables.
+### Return Type
+Recall that calling the `ListMySales` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMySales` Query is of type `ListMySalesData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMySalesData {
+  sales: ({
+    id: UUIDString;
+    saleDate: DateString;
+    salePrice: number;
+    buyerName: string;
+    paymentMethod?: string | null;
+    invoiceNumber?: string | null;
+    animal?: {
+      id: UUIDString;
+      tagId: string;
+      species: string;
+    } & Animal_Key;
+    customer?: {
+      id: UUIDString;
+      name: string;
+    } & Customer_Key;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Sale_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMySales`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMySales } from '@dataconnect/generated/react'
+
+export default function ListMySalesComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMySales();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMySales(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMySales(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMySales(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.sales);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyIncome
+You can execute the `ListMyIncome` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyIncome(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyIncomeData>): UseDataConnectQueryResult<ListMyIncomeData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyIncome(options?: useDataConnectQueryOptions<ListMyIncomeData>): UseDataConnectQueryResult<ListMyIncomeData, undefined>;
+```
+
+### Variables
+The `ListMyIncome` Query has no variables.
+### Return Type
+Recall that calling the `ListMyIncome` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyIncome` Query is of type `ListMyIncomeData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyIncomeData {
+  incomes: ({
+    id: UUIDString;
+    amount: number;
+    date: DateString;
+    category: string;
+    description?: string | null;
+    paymentMethod?: string | null;
+    referenceNumber?: string | null;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Income_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyIncome`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyIncome } from '@dataconnect/generated/react'
+
+export default function ListMyIncomeComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyIncome();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyIncome(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyIncome(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyIncome(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.incomes);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyExpenses
+You can execute the `ListMyExpenses` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyExpenses(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyExpensesData>): UseDataConnectQueryResult<ListMyExpensesData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyExpenses(options?: useDataConnectQueryOptions<ListMyExpensesData>): UseDataConnectQueryResult<ListMyExpensesData, undefined>;
+```
+
+### Variables
+The `ListMyExpenses` Query has no variables.
+### Return Type
+Recall that calling the `ListMyExpenses` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyExpenses` Query is of type `ListMyExpensesData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyExpensesData {
+  expenses: ({
+    id: UUIDString;
+    amount: number;
+    date: DateString;
+    category: string;
+    description?: string | null;
+    paymentMethod?: string | null;
+    referenceNumber?: string | null;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Expense_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyExpenses`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyExpenses } from '@dataconnect/generated/react'
+
+export default function ListMyExpensesComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyExpenses();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyExpenses(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyExpenses(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyExpenses(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.expenses);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyEmployees
+You can execute the `ListMyEmployees` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyEmployees(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyEmployeesData>): UseDataConnectQueryResult<ListMyEmployeesData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyEmployees(options?: useDataConnectQueryOptions<ListMyEmployeesData>): UseDataConnectQueryResult<ListMyEmployeesData, undefined>;
+```
+
+### Variables
+The `ListMyEmployees` Query has no variables.
+### Return Type
+Recall that calling the `ListMyEmployees` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyEmployees` Query is of type `ListMyEmployeesData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyEmployeesData {
+  employees: ({
+    id: UUIDString;
+    employeeId: string;
+    name: string;
+    role: string;
+    phone?: string | null;
+    email?: string | null;
+    address?: string | null;
+    hireDate?: DateString | null;
+    salary?: number | null;
+    status: string;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Employee_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyEmployees`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyEmployees } from '@dataconnect/generated/react'
+
+export default function ListMyEmployeesComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyEmployees();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyEmployees(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyEmployees(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyEmployees(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.employees);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyFarmEvents
+You can execute the `ListMyFarmEvents` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyFarmEvents(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyFarmEventsData>): UseDataConnectQueryResult<ListMyFarmEventsData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyFarmEvents(options?: useDataConnectQueryOptions<ListMyFarmEventsData>): UseDataConnectQueryResult<ListMyFarmEventsData, undefined>;
+```
+
+### Variables
+The `ListMyFarmEvents` Query has no variables.
+### Return Type
+Recall that calling the `ListMyFarmEvents` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyFarmEvents` Query is of type `ListMyFarmEventsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyFarmEventsData {
+  farmEvents: ({
+    id: UUIDString;
+    title: string;
+    description?: string | null;
+    eventType: string;
+    eventDate: DateString;
+    priority: string;
+    completed: boolean;
+    animal?: {
+      id: UUIDString;
+      tagId: string;
+      species: string;
+    } & Animal_Key;
+    field?: {
+      id: UUIDString;
+      name: string;
+    } & Field_Key;
+    crop?: {
+      id: UUIDString;
+      name: string;
+    } & Crop_Key;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & FarmEvent_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyFarmEvents`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyFarmEvents } from '@dataconnect/generated/react'
+
+export default function ListMyFarmEventsComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyFarmEvents();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyFarmEvents(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyFarmEvents(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyFarmEvents(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.farmEvents);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyNotifications
+You can execute the `ListMyNotifications` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyNotifications(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyNotificationsData>): UseDataConnectQueryResult<ListMyNotificationsData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyNotifications(options?: useDataConnectQueryOptions<ListMyNotificationsData>): UseDataConnectQueryResult<ListMyNotificationsData, undefined>;
+```
+
+### Variables
+The `ListMyNotifications` Query has no variables.
+### Return Type
+Recall that calling the `ListMyNotifications` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyNotifications` Query is of type `ListMyNotificationsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyNotificationsData {
+  notifications: ({
+    id: UUIDString;
+    title: string;
+    message: string;
+    notificationType: string;
+    priority: string;
+    eventDate?: DateString | null;
+    isRead: boolean;
+    createdAt: TimestampString;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & Notification_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyNotifications`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyNotifications } from '@dataconnect/generated/react'
+
+export default function ListMyNotificationsComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyNotifications();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyNotifications(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyNotifications(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyNotifications(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.notifications);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListMyFarmTasks
+You can execute the `ListMyFarmTasks` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListMyFarmTasks(dc: DataConnect, options?: useDataConnectQueryOptions<ListMyFarmTasksData>): UseDataConnectQueryResult<ListMyFarmTasksData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListMyFarmTasks(options?: useDataConnectQueryOptions<ListMyFarmTasksData>): UseDataConnectQueryResult<ListMyFarmTasksData, undefined>;
+```
+
+### Variables
+The `ListMyFarmTasks` Query has no variables.
+### Return Type
+Recall that calling the `ListMyFarmTasks` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListMyFarmTasks` Query is of type `ListMyFarmTasksData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListMyFarmTasksData {
+  farmTasks: ({
+    id: UUIDString;
+    title: string;
+    description?: string | null;
+    taskDate: DateString;
+    priority: string;
+    status: string;
+    employee?: {
+      id: UUIDString;
+      name: string;
+    } & Employee_Key;
+    animal?: {
+      id: UUIDString;
+      tagId: string;
+    } & Animal_Key;
+    field?: {
+      id: UUIDString;
+      name: string;
+    } & Field_Key;
+    farm: {
+      id: UUIDString;
+      farmName: string;
+    } & Farm_Key;
+  } & FarmTask_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListMyFarmTasks`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListMyFarmTasks } from '@dataconnect/generated/react'
+
+export default function ListMyFarmTasksComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListMyFarmTasks();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListMyFarmTasks(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyFarmTasks(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListMyFarmTasks(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.farmTasks);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
 
 ## ListEquipment
 You can execute the `ListEquipment` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
@@ -283,246 +1303,7 @@ export default function ListEquipmentMaintenanceComponent() {
 
 # Mutations
 
-The React generated SDK provides Mutations hook functions that call and return [`useDataConnectMutation`](https://react-query-firebase.invertase.dev/react/data-connect/mutations) hooks from TanStack Query Firebase.
+No Mutations were generated for the `example` connector.
 
-Calling these hook functions will return a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, and the most recent data returned by the Mutation, among other things. To learn more about these hooks and how to use them, see the [TanStack Query Firebase documentation](https://react-query-firebase.invertase.dev/react/data-connect/mutations).
-
-Mutation hooks do not execute their Mutations automatically when called. Rather, after calling the Mutation hook function and getting a `UseMutationResult` object, you must call the `UseMutationResult.mutate()` function to execute the Mutation.
-
-To learn more about TanStack React Query's Mutations, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/guides/mutations).
-
-## Using Mutation Hooks
-Here's a general overview of how to use the generated Mutation hooks in your code:
-
-- Mutation hook functions are not called with the arguments to the Mutation. Instead, arguments are passed to `UseMutationResult.mutate()`.
-- If the Mutation has no variables, the `mutate()` function does not require arguments.
-- If the Mutation has any required variables, the `mutate()` function will require at least one argument: an object that contains all the required variables for the Mutation.
-- If the Mutation has some required and some optional variables, only required variables are necessary in the variables argument object, and optional variables may be provided as well.
-- If all of the Mutation's variables are optional, the Mutation hook function does not require any arguments.
-- Mutation hook functions can be called with or without passing in a `DataConnect` instance as an argument. If no `DataConnect` argument is passed in, then the generated SDK will call `getDataConnect(connectorConfig)` behind the scenes for you.
-- Mutation hooks also accept an `options` argument of type `useDataConnectMutationOptions`. To learn more about the `options` argument, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/guides/mutations#mutation-side-effects).
-  - `UseMutationResult.mutate()` also accepts an `options` argument of type `useDataConnectMutationOptions`.
-  - ***Special case:*** If the Mutation has no arguments (or all optional arguments and you wish to provide none), and you want to pass `options` to `UseMutationResult.mutate()`, you must pass `undefined` where you would normally pass the Mutation's arguments, and then may provide the options argument.
-
-Below are examples of how to use the `example` connector's generated Mutation hook functions to execute each Mutation. You can also follow the examples from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#operations-react-angular).
-
-## CreateEquipment
-You can execute the `CreateEquipment` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
-```javascript
-useCreateEquipment(options?: useDataConnectMutationOptions<CreateEquipmentData, FirebaseError, CreateEquipmentVariables>): UseDataConnectMutationResult<CreateEquipmentData, CreateEquipmentVariables>;
-```
-You can also pass in a `DataConnect` instance to the Mutation hook function.
-```javascript
-useCreateEquipment(dc: DataConnect, options?: useDataConnectMutationOptions<CreateEquipmentData, FirebaseError, CreateEquipmentVariables>): UseDataConnectMutationResult<CreateEquipmentData, CreateEquipmentVariables>;
-```
-
-### Variables
-The `CreateEquipment` Mutation requires an argument of type `CreateEquipmentVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
-
-```javascript
-export interface CreateEquipmentVariables {
-  name: string;
-  equipmentType: string;
-  serialNumber?: string | null;
-  purchaseDate?: DateString | null;
-  purchasePrice?: number | null;
-  status: string;
-  location?: string | null;
-  lastServiceDate?: DateString | null;
-  nextServiceDate?: DateString | null;
-  notes?: string | null;
-  farmId: UUIDString;
-}
-```
-### Return Type
-Recall that calling the `CreateEquipment` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
-
-To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
-
-To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
-
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateEquipment` Mutation is of type `CreateEquipmentData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
-```javascript
-export interface CreateEquipmentData {
-  equipment_insert: Equipment_Key;
-}
-```
-
-To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
-
-### Using `CreateEquipment`'s Mutation hook function
-
-```javascript
-import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, CreateEquipmentVariables } from '@dataconnect/generated';
-import { useCreateEquipment } from '@dataconnect/generated/react'
-
-export default function CreateEquipmentComponent() {
-  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
-  const mutation = useCreateEquipment();
-
-  // You can also pass in a `DataConnect` instance to the Mutation hook function.
-  const dataConnect = getDataConnect(connectorConfig);
-  const mutation = useCreateEquipment(dataConnect);
-
-  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  const mutation = useCreateEquipment(options);
-
-  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
-  const dataConnect = getDataConnect(connectorConfig);
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  const mutation = useCreateEquipment(dataConnect, options);
-
-  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
-  // The `useCreateEquipment` Mutation requires an argument of type `CreateEquipmentVariables`:
-  const createEquipmentVars: CreateEquipmentVariables = {
-    name: ..., 
-    equipmentType: ..., 
-    serialNumber: ..., // optional
-    purchaseDate: ..., // optional
-    purchasePrice: ..., // optional
-    status: ..., 
-    location: ..., // optional
-    lastServiceDate: ..., // optional
-    nextServiceDate: ..., // optional
-    notes: ..., // optional
-    farmId: ..., 
-  };
-  mutation.mutate(createEquipmentVars);
-  // Variables can be defined inline as well.
-  mutation.mutate({ name: ..., equipmentType: ..., serialNumber: ..., purchaseDate: ..., purchasePrice: ..., status: ..., location: ..., lastServiceDate: ..., nextServiceDate: ..., notes: ..., farmId: ..., });
-
-  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  mutation.mutate(createEquipmentVars, options);
-
-  // Then, you can render your component dynamically based on the status of the Mutation.
-  if (mutation.isPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (mutation.isError) {
-    return <div>Error: {mutation.error.message}</div>;
-  }
-
-  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
-  if (mutation.isSuccess) {
-    console.log(mutation.data.equipment_insert);
-  }
-  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
-}
-```
-
-## CreateEquipmentMaintenance
-You can execute the `CreateEquipmentMaintenance` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
-```javascript
-useCreateEquipmentMaintenance(options?: useDataConnectMutationOptions<CreateEquipmentMaintenanceData, FirebaseError, CreateEquipmentMaintenanceVariables>): UseDataConnectMutationResult<CreateEquipmentMaintenanceData, CreateEquipmentMaintenanceVariables>;
-```
-You can also pass in a `DataConnect` instance to the Mutation hook function.
-```javascript
-useCreateEquipmentMaintenance(dc: DataConnect, options?: useDataConnectMutationOptions<CreateEquipmentMaintenanceData, FirebaseError, CreateEquipmentMaintenanceVariables>): UseDataConnectMutationResult<CreateEquipmentMaintenanceData, CreateEquipmentMaintenanceVariables>;
-```
-
-### Variables
-The `CreateEquipmentMaintenance` Mutation requires an argument of type `CreateEquipmentMaintenanceVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
-
-```javascript
-export interface CreateEquipmentMaintenanceVariables {
-  serviceDate: DateString;
-  description: string;
-  cost?: number | null;
-  nextServiceDate?: DateString | null;
-  technician?: string | null;
-  notes?: string | null;
-  equipmentId: UUIDString;
-}
-```
-### Return Type
-Recall that calling the `CreateEquipmentMaintenance` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
-
-To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
-
-To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
-
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateEquipmentMaintenance` Mutation is of type `CreateEquipmentMaintenanceData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
-```javascript
-export interface CreateEquipmentMaintenanceData {
-  equipmentMaintenance_insert: EquipmentMaintenance_Key;
-}
-```
-
-To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
-
-### Using `CreateEquipmentMaintenance`'s Mutation hook function
-
-```javascript
-import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, CreateEquipmentMaintenanceVariables } from '@dataconnect/generated';
-import { useCreateEquipmentMaintenance } from '@dataconnect/generated/react'
-
-export default function CreateEquipmentMaintenanceComponent() {
-  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
-  const mutation = useCreateEquipmentMaintenance();
-
-  // You can also pass in a `DataConnect` instance to the Mutation hook function.
-  const dataConnect = getDataConnect(connectorConfig);
-  const mutation = useCreateEquipmentMaintenance(dataConnect);
-
-  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  const mutation = useCreateEquipmentMaintenance(options);
-
-  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
-  const dataConnect = getDataConnect(connectorConfig);
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  const mutation = useCreateEquipmentMaintenance(dataConnect, options);
-
-  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
-  // The `useCreateEquipmentMaintenance` Mutation requires an argument of type `CreateEquipmentMaintenanceVariables`:
-  const createEquipmentMaintenanceVars: CreateEquipmentMaintenanceVariables = {
-    serviceDate: ..., 
-    description: ..., 
-    cost: ..., // optional
-    nextServiceDate: ..., // optional
-    technician: ..., // optional
-    notes: ..., // optional
-    equipmentId: ..., 
-  };
-  mutation.mutate(createEquipmentMaintenanceVars);
-  // Variables can be defined inline as well.
-  mutation.mutate({ serviceDate: ..., description: ..., cost: ..., nextServiceDate: ..., technician: ..., notes: ..., equipmentId: ..., });
-
-  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  mutation.mutate(createEquipmentMaintenanceVars, options);
-
-  // Then, you can render your component dynamically based on the status of the Mutation.
-  if (mutation.isPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (mutation.isError) {
-    return <div>Error: {mutation.error.message}</div>;
-  }
-
-  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
-  if (mutation.isSuccess) {
-    console.log(mutation.data.equipmentMaintenance_insert);
-  }
-  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
-}
-```
+If you want to learn more about how to use Mutations in Data Connect, you can follow the examples from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#operations-react-angular).
 

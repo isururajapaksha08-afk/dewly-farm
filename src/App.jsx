@@ -12,6 +12,7 @@ import EmployeesPage from "./pages/EmployeesPage";
 import FinancePage from "./pages/FinancePage";
 import CalendarPage from "./pages/CalendarPage";
 import SettingsPage from "./pages/SettingsPage";
+
 import AdminPage from "./pages/admin/AdminPage";
 import UsersPage from "./pages/admin/UsersPage";
 import RolesPage from "./pages/admin/RolesPage";
@@ -19,11 +20,13 @@ import RolesPage from "./pages/admin/RolesPage";
 function App() {
   return (
     <Routes>
+      {/* HOME */}
       <Route
         path="/"
         element={<Navigate to="/dashboard" replace />}
       />
 
+      {/* DASHBOARD */}
       <Route
         path="/dashboard"
         element={
@@ -33,6 +36,7 @@ function App() {
         }
       />
 
+      {/* LIVESTOCK */}
       <Route
         path="/livestock"
         element={
@@ -42,6 +46,7 @@ function App() {
         }
       />
 
+      {/* CROPS */}
       <Route
         path="/crops"
         element={
@@ -51,6 +56,7 @@ function App() {
         }
       />
 
+      {/* INVENTORY */}
       <Route
         path="/inventory"
         element={
@@ -60,6 +66,7 @@ function App() {
         }
       />
 
+      {/* BEEKEEPING */}
       <Route
         path="/beekeeping"
         element={
@@ -69,6 +76,7 @@ function App() {
         }
       />
 
+      {/* SALES */}
       <Route
         path="/sales"
         element={
@@ -78,6 +86,7 @@ function App() {
         }
       />
 
+      {/* EMPLOYEES */}
       <Route
         path="/employees"
         element={
@@ -87,6 +96,7 @@ function App() {
         }
       />
 
+      {/* FINANCE */}
       <Route
         path="/finance"
         element={
@@ -96,6 +106,7 @@ function App() {
         }
       />
 
+      {/* CALENDAR */}
       <Route
         path="/calendar"
         element={
@@ -105,6 +116,7 @@ function App() {
         }
       />
 
+      {/* SETTINGS */}
       <Route
         path="/settings"
         element={
@@ -114,37 +126,41 @@ function App() {
         }
       />
 
+      {/* ADMIN */}
+      <Route
+        path="/admin"
+        element={
+          <PageLayout>
+            <AdminPage />
+          </PageLayout>
+        }
+      />
+
+      {/* ADMIN - USERS */}
+      <Route
+        path="/admin/users"
+        element={
+          <PageLayout>
+            <UsersPage />
+          </PageLayout>
+        }
+      />
+
+      {/* ADMIN - ROLES */}
+      <Route
+        path="/admin/roles"
+        element={
+          <PageLayout>
+            <RolesPage />
+          </PageLayout>
+        }
+      />
+
+      {/* UNKNOWN ROUTES */}
       <Route
         path="*"
         element={<Navigate to="/dashboard" replace />}
       />
-<Route
-  path="/admin"
-  element={
-    <PageLayout>
-      <AdminPage />
-    </PageLayout>
-  }
-/>
-
-<Route
-  path="/admin/users"
-  element={
-    <PageLayout>
-      <UsersPage />
-    </PageLayout>
-  }
-/>
-
-<Route
-  path="/admin/roles"
-  element={
-    <PageLayout>
-      <RolesPage />
-    </PageLayout>
-  }
-/>
-
     </Routes>
   );
 }

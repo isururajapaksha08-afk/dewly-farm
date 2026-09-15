@@ -1,0 +1,221 @@
+# ============================================================
+# USERS
+# ============================================================
+
+query ListUsers @auth(level: USER) {
+  users(orderBy: [{name: ASC}]) {
+    id
+    name
+    email
+    role
+    phoneNumber
+    status
+
+    farm {
+      id
+      farmName
+    }
+
+    userAccess_on_user {
+      id
+      dashboard
+      animals
+      health
+      breeding
+      production
+      fields
+      crops
+      harvest
+      inventory
+      suppliers
+      equipment
+      employees
+      sales
+      customers
+      income
+      expenses
+      reports
+      notifications
+      users
+      settings
+    }
+  }
+}
+
+query GetUser($id: UUID!) @auth(level: USER) {
+  user(id: $id) {
+    id
+    name
+    email
+    role
+    phoneNumber
+    status
+    farm {
+      id
+      farmName
+    }
+    userAccess_on_user {
+      id
+      dashboard
+      animals
+      health
+      breeding
+      production
+      fields
+      crops
+      harvest
+      inventory
+      suppliers
+      equipment
+      employees
+      sales
+      customers
+      income
+      expenses
+      reports
+      notifications
+      users
+      settings
+    }
+  }
+}
+
+# ============================================================
+# USERS
+# ============================================================
+
+query ListUsers @auth(level: USER) {
+  users(orderBy: [{name: ASC}]) {
+    id
+    name
+    email
+    role
+    phoneNumber
+    status
+
+    farm {
+      id
+      farmName
+    }
+
+    userAccess_on_user {
+      id
+      dashboard
+      animals
+      health
+      breeding
+      production
+      fields
+      crops
+      harvest
+      inventory
+      suppliers
+      equipment
+      employees
+      sales
+      customers
+      income
+      expenses
+      reports
+      notifications
+      users
+      settings
+    }
+  }
+}
+
+query GetUser($id: UUID!) @auth(level: USER) {
+  user(id: $id) {
+    id
+    name
+    email
+    role
+    phoneNumber
+    status
+    farm {
+      id
+      farmName
+    }
+    userAccess_on_user {
+      id
+      dashboard
+      animals
+      health
+      breeding
+      production
+      fields
+      crops
+      harvest
+      inventory
+      suppliers
+      equipment
+      employees
+      sales
+      customers
+      income
+      expenses
+      reports
+      notifications
+      users
+      settings
+    }
+  }
+}
+
+mutation CreateUserAccess(
+  $userId: UUID!
+  $dashboard: Boolean!
+  $animals: Boolean!
+  $health: Boolean!
+  $breeding: Boolean!
+  $production: Boolean!
+  $fields: Boolean!
+  $crops: Boolean!
+  $harvest: Boolean!
+  $inventory: Boolean!
+  $suppliers: Boolean!
+  $equipment: Boolean!
+  $employees: Boolean!
+  $sales: Boolean!
+  $customers: Boolean!
+  $income: Boolean!
+  $expenses: Boolean!
+  $reports: Boolean!
+  $notifications: Boolean!
+  $users: Boolean!
+  $settings: Boolean!
+) @auth(level: USER) {
+  userAccess: userAccess_insert(
+    data: {
+      userId: $userId
+      dashboard: $dashboard
+      animals: $animals
+      health: $health
+      breeding: $breeding
+      production: $production
+      fields: $fields
+      crops: $crops
+      harvest: $harvest
+      inventory: $inventory
+      suppliers: $suppliers
+      equipment: $equipment
+      employees: $employees
+      sales: $sales
+      customers: $customers
+      income: $income
+      expenses: $expenses
+      reports: $reports
+      notifications: $notifications
+      users: $users
+      settings: $settings
+    }
+  )
+}
+
+mutation DeleteUserAccess($id: UUID!) @auth(level: USER) {
+  userAccess_delete(key: {id: $id})
+}
+
+mutation DeleteUser($id: UUID!) @auth(level: USER) {
+  user_delete(key: {id: $id})
+}

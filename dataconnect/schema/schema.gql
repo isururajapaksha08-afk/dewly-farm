@@ -26,9 +26,50 @@ type Farm @table {
 
 type User @table {
   name: String!
+  email: String
   role: String!
   phoneNumber: String
+  status: String! @default(value: "Active")
   farm: Farm!
+}
+
+# ============================================================
+# USER ACCESS
+# ============================================================
+
+type UserAccess @table {
+  user: User!
+
+  dashboard: Boolean! @default(value: true)
+
+  animals: Boolean! @default(value: false)
+  health: Boolean! @default(value: false)
+  breeding: Boolean! @default(value: false)
+
+  production: Boolean! @default(value: false)
+
+  fields: Boolean! @default(value: false)
+  crops: Boolean! @default(value: false)
+  harvest: Boolean! @default(value: false)
+
+  inventory: Boolean! @default(value: false)
+  suppliers: Boolean! @default(value: false)
+
+  equipment: Boolean! @default(value: false)
+
+  employees: Boolean! @default(value: false)
+
+  sales: Boolean! @default(value: false)
+  customers: Boolean! @default(value: false)
+
+  income: Boolean! @default(value: false)
+  expenses: Boolean! @default(value: false)
+
+  reports: Boolean! @default(value: false)
+
+  notifications: Boolean! @default(value: false)
+  users: Boolean! @default(value: false)
+  settings: Boolean! @default(value: false)
 }
 
 
