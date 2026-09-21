@@ -1,236 +1,378 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Search,
-  Plus,
-  MoreVertical,
-  HeartPulse,
-  Pencil,
-  Eye,
+  X,
+  Save,
+  Beef,
+  CalendarDays,
+  Tag,
+  VenusAndMars,
+  Activity,
+  ShoppingCart,
 } from "lucide-react";
 
-export default function AnimalList({
-  animals = [],
-  onAdd,
-  onEdit,
-  onView,
+const initialForm = {
+  tagId: "",
+  species: "",
+  breed: "",
+  gender: "",
+  birthDate: "",
+  purchaseDate: "",
+  status: "Active",
+};
+
+export default function AnimalForm({
+  animal,
+  onSave,
+  onClose,
 }) {
-  const [search, setSearch] = useState("");
-  const [menuId, setMenuId] = useState(null);
+  const [form, setForm] = useState(initialForm);
 
-  const filteredAnimals = animals.filter((animal) => {
-    const value = search.toLowerCase();
+  const isEdit = Boolean(animal);
 
-    return (
-      animal.tagId?.toLowerCase().includes(value) ||
-      animal.species?.toLowerCase().includes(value) ||
-      animal.breed?.toLowerCase().includes(value) ||
-      animal.gender?.toLowerCase().includes(value)
-    );
-  });
+  useEffect(() => {
+    if (animal) {
+      setForm({
+        tagId: animal.tagId || "",
+        species: animal.species || "",
+        breed: animal.breed || "",
+        gender: animal.gender || "",
+        birthDate: animal.birthDate
+          ? String(animal.birthDate).slice(0, 10)
+          : "",
+        purchaseDate: animal.purchaseDate
+          ? String(animal.purchaseDate).slice(0, 10)
+          : "",
+        status: animal.status || "Active",
+      });
+    } else {
+      setForm(initialForm);
+    }
+  }, [animal]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setForm((current) => ({
+      ...current,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!form.tagId.trim()) {
+      alert("Please enter Animal Tag ID.");
+      return;
+    }
+
+    if (!form.species) {
+      alert("Please select animal species.");
+      return;
+    }
+
+    if (!form.birthDate) {
+      alert("Please select birth date.");
+      return;
+    }
+
+    onSave({
+      ...form,
+      tagId: form.tagId.trim(),
+      breed: form.breed.trim() || null,
+      gender: form.gender || null,
+      purchaseDate: form.purchaseDate || null,
+    });
+  };
 
   return (
-    <div className="card">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
 
-      {/* Header */}
-      <div className="card-header">
-        <div>
-          <div className="card-title">
-            Livestock
-          </div>
+      <div className="w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl">
 
-          <div className="card-subtitle">
-            Manage all farm animals
-          </div>
-        </div>
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-5">
 
-        <button
-          className="primary-button"
-          onClick={onAdd}
-        >
-          <Plus size={17} />
-          Add Animal
-        </button>
-      </div>
+          <div className="flex items-center gap-3">
 
-      {/* Search */}
-      <div
-        style={{
-          display: "flex",
-          gap: "12px",
-          marginBottom: "20px",
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            background: "#f8fafc",
-            padding: "12px 14px",
-            borderRadius: "12px",
-          }}
-        >
-          <Search size={18} />
-
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search animal by tag, species, breed..."
-            style={{
-              border: "none",
-              outline: "none",
-              background: "transparent",
-              width: "100%",
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Empty */}
-      {filteredAnimals.length === 0 ? (
-        <div
-          style={{
-            textAlign: "center",
-            padding: "50px",
-            color: "#718096",
-          }}
-        >
-          <HeartPulse
-            size={40}
-            style={{ marginBottom: "10px" }}
-          />
-
-          <h3>
-            No animals found
-          </h3>
-
-          <p>
-            {search
-              ? "No animals match your search."
-              : "Add your first farm animal."}
-          </p>
-        </div>
-      ) : (
-
-        /* Animal List */
-        <div
-          style={{
-            display: "grid",
-            gap: "12px",
-          }}
-        >
-          {filteredAnimals.map((animal) => (
-
-            <div
-              key={animal.id}
-              className="important-day"
-              style={{
-                position: "relative",
-              }}
-            >
-
-              <div className="important-day-icon">
-                🐄
-              </div>
-
-              <div
-                className="important-day-content"
-                style={{ cursor: "pointer" }}
-                onClick={() => onView?.(animal)}
-              >
-                <div className="important-day-title">
-                  {animal.tagId}
-                </div>
-
-                <div className="important-day-description">
-                  {animal.species}
-                  {" • "}
-                  {animal.breed || "No breed"}
-                  {" • "}
-                  {animal.gender || "Unknown"}
-                  {" • "}
-                  {animal.status}
-                </div>
-              </div>
-
-              <button
-                className="icon-button"
-                onClick={() =>
-                  setMenuId(
-                    menuId === animal.id
-                      ? null
-                      : animal.id
-                  )
-                }
-              >
-                <MoreVertical size={18} />
-              </button>
-
-              {/* Action Menu */}
-              {menuId === animal.id && (
-                <div
-                  style={{
-                    position: "absolute",
-                    right: "15px",
-                    top: "52px",
-                    zIndex: 20,
-                    background: "white",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    boxShadow:
-                      "0 10px 25px rgba(0,0,0,0.10)",
-                    minWidth: "160px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <button
-                    onClick={() => {
-                      setMenuId(null);
-                      onView?.(animal);
-                    }}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      padding: "11px 14px",
-                      border: "none",
-                      background: "white",
-                      cursor: "pointer",
-                      textAlign: "left",
-                    }}
-                  >
-                    <Eye size={16} />
-                    View Details
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setMenuId(null);
-                      onEdit?.(animal);
-                    }}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      padding: "11px 14px",
-                      border: "none",
-                      background: "white",
-                      cursor: "pointer",
-                      textAlign: "left",
-                    }}
-                  >
-                    <Pencil size={16} />
-                    Edit Animal
-                  </button>
-                </div>
-              )}
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-100 text-green-600">
+              <Beef size={22} />
             </div>
-          ))}
+
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">
+                {isEdit ? "Edit Animal" : "Add New Animal"}
+              </h2>
+
+              <p className="text-sm text-slate-500">
+                {isEdit
+                  ? "Update animal information"
+                  : "Enter the details of the new farm animal"}
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
+          >
+            <X size={20} />
+          </button>
+
         </div>
-      )}
+
+        {/* Form */}
+        <form onSubmit={handleSubmit}>
+
+          <div className="max-h-[70vh] overflow-y-auto px-6 py-6">
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+              {/* Tag ID */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Animal Tag ID *
+                </label>
+
+                <div className="relative">
+                  <Tag
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type="text"
+                    name="tagId"
+                    value={form.tagId}
+                    onChange={handleChange}
+                    placeholder="e.g. COW-001"
+                    className="w-full rounded-xl border border-slate-300 py-3 pl-10 pr-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                  />
+                </div>
+              </div>
+
+              {/* Species */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Species *
+                </label>
+
+                <div className="relative">
+                  <Beef
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <select
+                    name="species"
+                    value={form.species}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-slate-300 bg-white py-3 pl-10 pr-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                  >
+                    <option value="">
+                      Select species
+                    </option>
+
+                    <option value="Cattle">
+                      Cattle
+                    </option>
+
+                    <option value="Buffalo">
+                      Buffalo
+                    </option>
+
+                    <option value="Goat">
+                      Goat
+                    </option>
+
+                    <option value="Sheep">
+                      Sheep
+                    </option>
+
+                    <option value="Pig">
+                      Pig
+                    </option>
+
+                    <option value="Chicken">
+                      Chicken
+                    </option>
+
+                    <option value="Other">
+                      Other
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Breed */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Breed
+                </label>
+
+                <input
+                  type="text"
+                  name="breed"
+                  value={form.breed}
+                  onChange={handleChange}
+                  placeholder="e.g. Jersey"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                />
+              </div>
+
+              {/* Gender */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Gender
+                </label>
+
+                <div className="relative">
+                  <VenusAndMars
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <select
+                    name="gender"
+                    value={form.gender}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-slate-300 bg-white py-3 pl-10 pr-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                  >
+                    <option value="">
+                      Select gender
+                    </option>
+
+                    <option value="Male">
+                      Male
+                    </option>
+
+                    <option value="Female">
+                      Female
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Birth Date */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Birth Date *
+                </label>
+
+                <div className="relative">
+                  <CalendarDays
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type="date"
+                    name="birthDate"
+                    value={form.birthDate}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-slate-300 py-3 pl-10 pr-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                  />
+                </div>
+              </div>
+
+              {/* Purchase Date */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Purchase Date
+                </label>
+
+                <div className="relative">
+                  <ShoppingCart
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type="date"
+                    name="purchaseDate"
+                    value={form.purchaseDate}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-slate-300 py-3 pl-10 pr-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                  />
+                </div>
+              </div>
+
+              {/* Status */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Status *
+                </label>
+
+                <div className="relative">
+                  <Activity
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <select
+                    name="status"
+                    value={form.status}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-slate-300 bg-white py-3 pl-10 pr-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                  >
+                    <option value="Active">
+                      Active
+                    </option>
+
+                    <option value="Sick">
+                      Sick
+                    </option>
+
+                    <option value="Pregnant">
+                      Pregnant
+                    </option>
+
+                    <option value="Quarantine">
+                      Quarantine
+                    </option>
+
+                    <option value="Sold">
+                      Sold
+                    </option>
+
+                    <option value="Deceased">
+                      Deceased
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="flex justify-end gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4">
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              className="flex items-center gap-2 rounded-xl bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700"
+            >
+              <Save size={17} />
+
+              {isEdit
+                ? "Update Animal"
+                : "Save Animal"}
+            </button>
+
+          </div>
+
+        </form>
+      </div>
     </div>
   );
 }
