@@ -70,23 +70,80 @@ type UserAccess @table {
   users: Boolean! @default(value: false)
   settings: Boolean! @default(value: false)
 }
-
-
 # ============================================================
 # ANIMAL
 # ============================================================
 
 type Animal @table {
-  tagId: String!
+  # =========================
+  # IDENTIFICATION
+  # =========================
+
+  animalId: String!
+  tagNumber: String!
+  animalName: String
+  photoUrl: String
+
+  # =========================
+  # BASIC INFORMATION
+  # =========================
+
   species: String!
-  birthDate: Date!
-  status: String!
-  breed: String
-  gender: String
-  purchaseDate: Date
+  breed: String!
+  gender: String!
+  birthDate: Date
+  color: String
+  markings: String
+
+  # =========================
+  # IDENTIFICATION DEVICES
+  # =========================
+
+  rfidNumber: String
+  microchipId: String
+
+  # =========================
+  # PARENT INFORMATION
+  # =========================
+
+  motherId: String
+  fatherId: String
+
+  # =========================
+  # ACQUISITION
+  # =========================
+
+  dateAcquired: Date
+  acquisitionType: String
+  purchasePrice: Float
+
+  # =========================
+  # LOCATION
+  # =========================
+
+  shedBarn: String
+  penSection: String
+
+  # =========================
+  # CURRENT CONDITION
+  # =========================
+
+  currentWeight: Float
+  healthStatus: String!
+  animalStatus: String!
+
+  # =========================
+  # OTHER
+  # =========================
+
+  notes: String
+
+  # =========================
+  # FARM
+  # =========================
+
   farm: Farm!
 }
-
 
 # ============================================================
 # HEALTH RECORD
