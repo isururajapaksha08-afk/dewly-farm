@@ -1,6 +1,9 @@
 ﻿import { Navigate, Route, Routes } from "react-router-dom";
 
 import PageLayout from "./components/common/PageLayout";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+
+import LoginPage from "./pages/LoginPage";
 
 import DashboardPage from "./pages/DashboardPage";
 import LivestockPage from "./pages/LivestockPage";
@@ -17,9 +20,25 @@ import AdminPage from "./pages/admin/AdminPage";
 import UsersPage from "./pages/admin/UsersPage";
 import RolesPage from "./pages/admin/RolesPage";
 
+function ProtectedLayout({ children }) {
+  return (
+    <ProtectedRoute>
+      <PageLayout>
+        {children}
+      </PageLayout>
+    </ProtectedRoute>
+  );
+}
+
 function App() {
   return (
     <Routes>
+      {/* LOGIN */}
+      <Route
+        path="/login"
+        element={<LoginPage />}
+      />
+
       {/* HOME */}
       <Route
         path="/"
@@ -30,9 +49,9 @@ function App() {
       <Route
         path="/dashboard"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <DashboardPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -40,9 +59,9 @@ function App() {
       <Route
         path="/livestock"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <LivestockPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -50,9 +69,9 @@ function App() {
       <Route
         path="/crops"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <CropsPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -60,9 +79,9 @@ function App() {
       <Route
         path="/inventory"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <InventoryPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -70,9 +89,9 @@ function App() {
       <Route
         path="/beekeeping"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <BeekeepingPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -80,9 +99,9 @@ function App() {
       <Route
         path="/sales"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <SalesPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -90,9 +109,9 @@ function App() {
       <Route
         path="/employees"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <EmployeesPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -100,9 +119,9 @@ function App() {
       <Route
         path="/finance"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <FinancePage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -110,9 +129,9 @@ function App() {
       <Route
         path="/calendar"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <CalendarPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -120,9 +139,9 @@ function App() {
       <Route
         path="/settings"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <SettingsPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -130,9 +149,9 @@ function App() {
       <Route
         path="/admin"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <AdminPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -140,9 +159,9 @@ function App() {
       <Route
         path="/admin/users"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <UsersPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
@@ -150,13 +169,13 @@ function App() {
       <Route
         path="/admin/roles"
         element={
-          <PageLayout>
+          <ProtectedLayout>
             <RolesPage />
-          </PageLayout>
+          </ProtectedLayout>
         }
       />
 
-      {/* UNKNOWN ROUTES */}
+      {/* UNKNOWN */}
       <Route
         path="*"
         element={<Navigate to="/dashboard" replace />}

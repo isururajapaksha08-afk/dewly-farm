@@ -1,5 +1,5 @@
 # ============================================================
-# USERS
+# DEWLY FARM - USER MANAGEMENT
 # ============================================================
 
 query ListUsers @auth(level: USER) {
@@ -16,7 +16,7 @@ query ListUsers @auth(level: USER) {
       farmName
     }
 
-    userAccess_on_user {
+   userAccesses_on_user {
       id
       dashboard
       animals
@@ -41,6 +41,7 @@ query ListUsers @auth(level: USER) {
     }
   }
 }
+
 
 query GetUser($id: UUID!) @auth(level: USER) {
   user(id: $id) {
@@ -50,11 +51,13 @@ query GetUser($id: UUID!) @auth(level: USER) {
     role
     phoneNumber
     status
+
     farm {
       id
       farmName
     }
-    userAccess_on_user {
+
+    userAccesses_on_user {
       id
       dashboard
       animals
@@ -79,88 +82,36 @@ query GetUser($id: UUID!) @auth(level: USER) {
     }
   }
 }
+
 
 # ============================================================
-# USERS
+# CREATE USER
 # ============================================================
 
-query ListUsers @auth(level: USER) {
-  users(orderBy: [{name: ASC}]) {
-    id
-    name
-    email
-    role
-    phoneNumber
-    status
-
-    farm {
-      id
-      farmName
+mutation CreateUser(
+  $name: String!
+  $email: String
+  $role: String!
+  $phoneNumber: String
+  $status: String!
+  $farmId: UUID!
+) @auth(level: USER) {
+  user: user_insert(
+    data: {
+      name: $name
+      email: $email
+      role: $role
+      phoneNumber: $phoneNumber
+      status: $status
+      farmId: $farmId
     }
-
-    userAccess_on_user {
-      id
-      dashboard
-      animals
-      health
-      breeding
-      production
-      fields
-      crops
-      harvest
-      inventory
-      suppliers
-      equipment
-      employees
-      sales
-      customers
-      income
-      expenses
-      reports
-      notifications
-      users
-      settings
-    }
-  }
+  )
 }
 
-query GetUser($id: UUID!) @auth(level: USER) {
-  user(id: $id) {
-    id
-    name
-    email
-    role
-    phoneNumber
-    status
-    farm {
-      id
-      farmName
-    }
-    userAccess_on_user {
-      id
-      dashboard
-      animals
-      health
-      breeding
-      production
-      fields
-      crops
-      harvest
-      inventory
-      suppliers
-      equipment
-      employees
-      sales
-      customers
-      income
-      expenses
-      reports
-      notifications
-      users
-      settings
-    }
-  }
-}
+
+# ============================================================
+# CREATE USER ACCESS
+# ============================================================
 
 mutation CreateUserAccess(
   $userId: UUID!
@@ -212,10 +163,24 @@ mutation CreateUserAccess(
   )
 }
 
+
+# ============================================================
+# DELETE USER ACCESS
+# ============================================================
+
 mutation DeleteUserAccess($id: UUID!) @auth(level: USER) {
-  userAccess_delete(key: {id: $id})
+  userAccess_delete(
+    key: {id: $id}
+  )
 }
 
+
+# ============================================================
+# DELETE USER
+# ============================================================
+
 mutation DeleteUser($id: UUID!) @auth(level: USER) {
-  user_delete(key: {id: $id})
+  user_delete(
+    key: {id: $id}
+  )
 }

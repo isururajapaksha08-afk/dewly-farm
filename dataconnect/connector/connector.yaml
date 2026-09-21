@@ -1,0 +1,6 @@
+connectorId: "users"
+
+generate:
+  javascriptSdk:
+    outputDir: "../../src/dataconnect-generated/users"
+    package: "@firebasegen/users-connector"

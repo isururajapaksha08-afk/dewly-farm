@@ -35,7 +35,11 @@ const userIdToEmail = (userId) => {
 };
 
 const loginWithUserId = async (userId, password) => {
-  const email = userIdToEmail(userId);
+  const value = userId.trim().toLowerCase();
+
+  const email = value.includes("@")
+    ? value
+    : userIdToEmail(value);
 
   return signInWithEmailAndPassword(
     auth,

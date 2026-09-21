@@ -1,0 +1,512 @@
+﻿# ============================================================
+# DASHBOARD - FARM
+# ============================================================
+
+query GetMyFarms @auth(level: USER) {
+  farms(
+    where: {
+      ownerUid: { eq_expr: "auth.uid" }
+    }
+  ) {
+    id
+    farmName
+    location
+    contactPhone
+    email
+    ownerUid
+  }
+}
+
+# ============================================================
+# DASHBOARD - ANIMALS
+# ============================================================
+
+query ListMyAnimals @auth(level: USER) {
+  animals(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    tagId
+    species
+    birthDate
+    status
+    breed
+    gender
+    purchaseDate
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - FIELDS
+# ============================================================
+
+query ListMyFields @auth(level: USER) {
+  fields(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    name
+    sizeAcres
+    location
+    soilType
+    irrigationType
+    currentCrop
+    lastHarvestDate
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - CROPS
+# ============================================================
+
+query ListMyCrops @auth(level: USER) {
+  crops(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    name
+    cropType
+    plantingDate
+    expectedHarvestDate
+    description
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - INVENTORY
+# ============================================================
+
+query ListMyInventory @auth(level: USER) {
+  inventoryItems(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    itemName
+    category
+    quantityOnHand
+    unit
+    unitPrice
+    reorderLevel
+    expiryDate
+    storageLocation
+    supplier {
+      id
+      name
+    }
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - SALES
+# ============================================================
+
+query ListMySales @auth(level: USER) {
+  sales(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    saleDate
+    salePrice
+    buyerName
+    paymentMethod
+    invoiceNumber
+    animal {
+      id
+      tagId
+      species
+    }
+    customer {
+      id
+      name
+    }
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - INCOME
+# ============================================================
+
+query ListMyIncome @auth(level: USER) {
+  incomes(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    amount
+    date
+    category
+    description
+    paymentMethod
+    referenceNumber
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - EXPENSES
+# ============================================================
+
+query ListMyExpenses @auth(level: USER) {
+  expenses(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    amount
+    date
+    category
+    description
+    paymentMethod
+    referenceNumber
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - EMPLOYEES
+# ============================================================
+
+query ListMyEmployees @auth(level: USER) {
+  employees(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    employeeId
+    name
+    role
+    phone
+    email
+    address
+    hireDate
+    salary
+    status
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - EVENTS
+# ============================================================
+
+query ListMyFarmEvents @auth(level: USER) {
+  farmEvents(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    title
+    description
+    eventType
+    eventDate
+    priority
+    completed
+    animal {
+      id
+      tagId
+      species
+    }
+    field {
+      id
+      name
+    }
+    crop {
+      id
+      name
+    }
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - NOTIFICATIONS
+# ============================================================
+
+query ListMyNotifications @auth(level: USER) {
+  notifications(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    title
+    message
+    notificationType
+    priority
+    eventDate
+    isRead
+    createdAt
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# DASHBOARD - TASKS
+# ============================================================
+
+query ListMyFarmTasks @auth(level: USER) {
+  farmTasks(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    title
+    description
+    taskDate
+    priority
+    status
+    employee {
+      id
+      name
+    }
+    animal {
+      id
+      tagId
+    }
+    field {
+      id
+      name
+    }
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# EQUIPMENT
+# ============================================================
+
+query ListEquipment @auth(level: USER) {
+  equipments(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    name
+    equipmentType
+    serialNumber
+    purchaseDate
+    purchasePrice
+    status
+    location
+    lastServiceDate
+    nextServiceDate
+    notes
+    farm {
+      id
+      farmName
+    }
+  }
+}
+
+# ============================================================
+# EQUIPMENT MAINTENANCE
+# ============================================================
+
+query ListEquipmentMaintenance @auth(level: USER) {
+  equipmentMaintenances(
+    where: {
+      equipment: {
+        farm: {
+          ownerUid: { eq_expr: "auth.uid" }
+        }
+      }
+    }
+  ) {
+    id
+    serviceDate
+    description
+    cost
+    nextServiceDate
+    technician
+    notes
+    equipment {
+      id
+      name
+      equipmentType
+      serialNumber
+    }
+  }
+}
+# ============================================================
+# USERS - CURRENT LOGGED IN USER
+# ============================================================
+
+query GetMyUser @auth(level: USER) {
+  users(
+    where: {
+      authUid: { eq_expr: "auth.uid" }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+      location
+      contactPhone
+      email
+      ownerUid
+    }
+  }
+}
+
+# ============================================================
+# USERS - FARM USERS
+# ============================================================
+
+query ListMyFarmUsers @auth(level: USER) {
+  users(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+    }
+  }
+}# ============================================================
+# USERS
+# ============================================================
+
+query GetMyUser @auth(level: USER) {
+  users(
+    where: {
+      authUid: { eq_expr: "auth.uid" }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+      location
+      contactPhone
+      email
+      ownerUid
+    }
+  }
+}
+
+query ListMyFarmUsers @auth(level: USER) {
+  users(
+    where: {
+      farm: {
+        ownerUid: { eq_expr: "auth.uid" }
+      }
+    }
+  ) {
+    id
+    userId
+    name
+    email
+    role
+    phoneNumber
+    authUid
+    status
+    farm {
+      id
+      farmName
+    }
+  }
+}

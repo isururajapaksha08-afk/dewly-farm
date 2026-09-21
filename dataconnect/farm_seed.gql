@@ -1,0 +1,10 @@
+mutation CreateFarmSeed {
+  farm_insertMany(data: [
+    {
+      id: "10000000-0000-0000-0000-000000000001"
+      farmName: "Dewly Green Valley Farm"
+      location: "Kurunegala, Sri Lanka"
+      contactPhone: "+94 77 123 4567"
+    }
+  ])
+}

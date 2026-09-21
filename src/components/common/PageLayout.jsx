@@ -2,12 +2,24 @@ import { useState } from "react";
 
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import { useAuth } from "../../context/AuthContext";
 
 export default function PageLayout({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  
+  // Auth context එකෙන් logout function එක ලබා ගැනීම
+  const { user, logout } = useAuth();
 
   const closeMobileSidebar = () => {
     setMobileOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
@@ -28,6 +40,8 @@ export default function PageLayout({ children }) {
       >
         <Sidebar
           onNavigate={closeMobileSidebar}
+          user={user}
+          onLogout={handleLogout}
         />
       </div>
 
@@ -36,6 +50,8 @@ export default function PageLayout({ children }) {
           onMenuClick={() =>
             setMobileOpen((previous) => !previous)
           }
+          user={user}
+          onLogout={handleLogout}
         />
 
         <section className="page-content">

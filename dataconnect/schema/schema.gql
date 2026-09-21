@@ -14,8 +14,6 @@ type Farm @table {
   email: String
 
   # Firebase Authentication UID of the farm owner
-  # Keep nullable initially so existing Farm records
-  # can be migrated safely.
   ownerUid: String
 }
 
@@ -32,6 +30,7 @@ type User @table {
   status: String! @default(value: "Active")
   farm: Farm!
 }
+
 
 # ============================================================
 # USER ACCESS
@@ -122,11 +121,21 @@ type Vaccination @table {
 # ============================================================
 
 type Breeding @table {
+  # AI / Natural breeding date
   breedingDate: Date!
+
+  # AI / NATURAL / OTHER
+  breedingType: String!
+
+  # Expected calving / kidding date
   expectedBirthDate: Date
+
+  # Actual calving / kidding date
   actualBirthDate: Date
+
   outcome: String
   notes: String
+
   animal: Animal!
 }
 
@@ -154,9 +163,15 @@ type Field @table {
 type Crop @table {
   name: String!
   cropType: String
+
+  # Crop planting date
   plantingDate: Date
+
+  # Expected harvesting date
   expectedHarvestDate: Date
+
   description: String
+
   farm: Farm!
 }
 
@@ -166,11 +181,14 @@ type Crop @table {
 # ============================================================
 
 type Harvest @table {
+  # Actual harvesting date
   harvestDate: Date!
+
   yieldAmount: Float!
   unit: String!
   quality: String
   notes: String
+
   field: Field!
   crop: Crop!
 }
@@ -185,6 +203,7 @@ type Supplier @table {
   contactInfo: String
   address: String
   email: String
+
   farm: Farm!
 }
 
@@ -202,6 +221,7 @@ type InventoryItem @table {
   reorderLevel: Float
   expiryDate: Date
   storageLocation: String
+
   supplier: Supplier
   farm: Farm!
 }
@@ -218,6 +238,7 @@ type StockTransaction @table {
   unitPrice: Float
   referenceNumber: String
   notes: String
+
   inventoryItem: InventoryItem!
 }
 
@@ -232,9 +253,15 @@ type BeeHive @table {
   hiveType: String
   colonyStrength: String
   queenStatus: String
+
+  # Previous inspection date
   lastInspectionDate: Date
+
+  # Next scheduled inspection date
   nextInspectionDate: Date
+
   notes: String
+
   farm: Farm!
 }
 
@@ -244,11 +271,14 @@ type BeeHive @table {
 # ============================================================
 
 type HoneyHarvest @table {
+  # Planned / actual honey harvesting date
   harvestDate: Date!
+
   quantityKg: Float!
   quality: String
   buyer: String
   notes: String
+
   beeHive: BeeHive!
 }
 
@@ -267,6 +297,7 @@ type Employee @table {
   hireDate: Date
   salary: Float
   status: String!
+
   farm: Farm!
 }
 
@@ -281,6 +312,7 @@ type WorkRecord @table {
   hours: Float
   taskType: String
   notes: String
+
   employee: Employee!
 }
 
@@ -295,6 +327,7 @@ type Customer @table {
   address: String
   email: String
   customerType: String
+
   farm: Farm!
 }
 
@@ -309,8 +342,10 @@ type Sale @table {
   buyerName: String!
   paymentMethod: String
   invoiceNumber: String
+
   animal: Animal
   customer: Customer
+
   farm: Farm!
 }
 
@@ -326,6 +361,7 @@ type Income @table {
   description: String
   paymentMethod: String
   referenceNumber: String
+
   farm: Farm!
 }
 
@@ -341,6 +377,7 @@ type Expense @table {
   description: String
   paymentMethod: String
   referenceNumber: String
+
   farm: Farm!
 }
 
@@ -356,11 +393,13 @@ type FarmEvent @table {
   eventDate: Date!
   priority: String!
   completed: Boolean!
+
   animal: Animal
   field: Field
   crop: Crop
   beeHive: BeeHive
   employee: Employee
+
   farm: Farm!
 }
 
@@ -370,15 +409,50 @@ type FarmEvent @table {
 # ============================================================
 
 type Notification @table {
+  # Notification title
   title: String!
+
+  # Detailed notification message
   message: String!
+
+  # Notification category
+  #
+  # BREEDING
+  # CALVING
+  # KIDDING
+  # HARVEST
+  # HIVE_INSPECTION
+  # HONEY_HARVEST
   notificationType: String!
+
+  # LOW / MEDIUM / HIGH / CRITICAL
   priority: String!
-  eventDate: Date
+
+  # Actual event date
+  eventDate: Date!
+
+  # Date notification becomes active
+  reminderDate: Date
+
+  # Read / unread
   isRead: Boolean!
+
+  # Notification creation time
   createdAt: Timestamp!
+
+  # Related animal
   animal: Animal
+
+  # Related crop
+  crop: Crop
+
+  # Related bee hive
+  beeHive: BeeHive
+
+  # Optional general farm event
   farmEvent: FarmEvent
+
+  # Related farm
   farm: Farm!
 }
 
@@ -393,10 +467,13 @@ type FarmTask @table {
   taskDate: Date!
   priority: String!
   status: String!
+
   employee: Employee
   animal: Animal
   field: Field
+
   notes: String
+
   farm: Farm!
 }
 
@@ -416,6 +493,7 @@ type Equipment @table {
   lastServiceDate: Date
   nextServiceDate: Date
   notes: String
+
   farm: Farm!
 }
 
@@ -431,5 +509,6 @@ type EquipmentMaintenance @table {
   nextServiceDate: Date
   technician: String
   notes: String
+
   equipment: Equipment!
 }

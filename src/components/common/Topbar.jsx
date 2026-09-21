@@ -49,6 +49,8 @@ const notifications = [
 
 export default function Topbar({
   onMenuClick,
+  user,
+  onLogout,
 }) {
   const navigate = useNavigate();
 
@@ -109,6 +111,10 @@ export default function Topbar({
     setProfileOpen(false);
     navigate("/settings");
   };
+
+  // Extract display name or email from user object safely
+  const userDisplayName = user?.displayName || user?.email || "Farm Admin";
+  const userRole = user?.email ? "Authenticated User" : "Administrator";
 
   return (
     <header className="topbar">
@@ -251,11 +257,11 @@ export default function Topbar({
 
           <div className="user-info">
             <strong>
-              Farm Admin
+              {userDisplayName}
             </strong>
 
             <span>
-              Administrator
+              {userRole}
             </span>
           </div>
         </button>
@@ -278,11 +284,11 @@ export default function Topbar({
           <div className="topbar-dropdown profile-dropdown">
             <div className="profile-dropdown-header">
               <strong>
-                Farm Admin
+                {userDisplayName}
               </strong>
 
               <span>
-                Administrator
+                {userRole}
               </span>
             </div>
 
@@ -298,9 +304,10 @@ export default function Topbar({
             <button
               type="button"
               className="profile-menu-item danger"
-              onClick={() =>
-                setProfileOpen(false)
-              }
+              onClick={() => {
+                setProfileOpen(false);
+                if (onLogout) onLogout();
+              }}
             >
               <LogOut size={15} />
               Sign out
